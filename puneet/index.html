@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" type="text/css" href="css/chatbox.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <title>1mg</title>
+    <style>
+      .affix {
+        top: 0px;
+        width: 100%;
+        z-index: .9999 !important;
+      }
+      .form-control:focus
+      {
+        box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.02);
+      }
+      .text
+      {
+        border-top-width: 0px;
+        border-right-width: 0px;
+        border-left-width:0px;
+        border-color: #7b97e2f0;
+        background-color: #0000000f;
+        border-radius: 0px;
+        color: #fff;
+      }
+      .btn-default
+      {
+        color: #d2e3fd;
+        background-color: #4a80ceab;
+        border-color: #ccc0;
+      }
+      .btn-default:hover
+      {
+        background-color: #4a80ceab;
+        color: black;
+      }
+
+      .search-form ul {
+        display: none;
+        position: absolute;
+        background-color: #fff;
+        z-index: 1000;
+        top: 34px;
+        list-style-type: none;
+        width: inherit;
+        border-radius: 0px 0px 2px 2px;
+        box-shadow:2px 3px 5px -1px rgba(0, 0, 0, .5);
+        padding: 0px;
+      }
+
+      .search-form ul li a{
+        text-decoration: none;
+        color: black;
+        cursor: default;
+      }
+
+      .search-form ul li {
+        padding: 5px 10px;
+      }
+
+      .search-form ul li:hover {
+        background-color: #f1f3f6;
+      }
+
+      .select {
+        background-color: #f1f3f6;
+      }
+      /*#user-dropdown {
+        display: none;
+        position: absolute;
+        background-color: #fff;
+        z-index: 1000;
+        top: 50px;
+        list-style-type: none;
+        width: inherit;
+        border-radius: 0px 0px 2px 2px;
+        box-shadow:2px 3px 5px -1px rgba(0, 0, 0, .5);
+        padding: 0px;
+      }
+
+      #user-dropdown li {
+        padding: 5px;
+      }
+      #user-dropdown li a {
+        text-decoration: none;
+        color: black;
+        cursor: default;
+      }*/
+    </style>
+  </head>
+  <body>
+    <header style="width: 100%;z-index: 1030;">
+      <nav class="navbar navbar-style" style="border-radius: 0; margin-bottom: 0;">
+        <div class="container-fluid">
+          <div class="navbar-header logo">
+            <a href="#"><img src="https://img.1mg.com/images/header/1mg_logo.svg" alt="logo"></a>
+            <button type="button" style="margin: 0;" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+              <i class="fa fa-bars"></i>
+            </button>
+          </div>
+          <div class="collapse navbar-collapse" id="myNavbar">
+            <ul id="collapse-list">
+              <li><a href="index.html" style="font-size: 165x;"><span><i class="fa fa-home"></i></span> <span class="icon-info">Home</span></a></li>
+              <li><a href="#articles" style="font-size: 15px;"><span><i class="fa fa-newspaper-o"></i></span> <span class="icon-info">Articles</span></a></li>
+              <li id="login-li" style="display: none;"><a href="#"  style="font-size: 15px;" data-toggle="modal" data-target="#myModal"><span><i class="fa fa-sign-in"></i></span> <span class="icon-info">Login / Sign Up</span></a></li>
+              <li id="user-li" style="display: none;"><a href="php/logout.php" style="font-size: 15px;">Log Out</a></li>
+              <li><a href="cart.html" style="font-size: 15px;"><i class="fa fa-shopping-cart"></i><span id="cart_no_of_items" style="visibility: hidden; padding: 1px 3px;position: relative; bottom: 10px; width: 18px; height: 18px; border-radius: 50%; background-color: yellow; color: black; font-size: 12px; font-weight: bold;">0</span></a></li>
+              <li><a href="#" style="font-size: 15px;">Need Help?</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <nav class="navbar navbar-style" id="navbar" data-spy="affix" data-offset-top="80" style="border-radius: 0px;margin-bottom: 0px;z-index: 1030;">
+        <div class="container-fluid">
+          <div class="col-md-2 col-xs-4 location">
+            <a href="#" style="color: white;"><i class="fa fa-map-marker"></i> <span>New Delhi</span></a>
+          </div>
+          <div class="col-md-10 col-xs-8" style="padding: 0px;">
+            <form class="search-form" id="search-form">
+              <div class="input-group search-input" style="">
+                <input type="text" id="search-med" autocomplete="off" class="form-control" placeholder="Search Medicines Here..." name="search" style="border-top-width:0px;border-bottom-width:2px;border-right-width:0px;border-left-width:0px;background-color: #76abfb00;border-color:#0a4cb7; color:#cdd2e2; font-family:Verdana, Geneva, sans-serif;border-radius: 0px;">
+                <ul>
+                  <li id="0" class="select" onclick="redirect(0);"><a></a></li>
+                  <li id="1" onclick="redirect(1);"><a></a></li>
+                  <li id="2" onclick="redirect(2);"><a></a></li>
+                  <li id="3" onclick="redirect(3);"><a></a></li>
+                </ul>
+                <div class="input-group-btn">
+                  <button class="btn btn-default" type="submit" style="background-color: #082c699c;border-color: #0a4cb7;color:#cdd2e2;width: 34px;border-radius: 50%;padding-left: 6px;padding-right: 6px;margin-left: 5px;">
+                    <i class="glyphicon glyphicon-search"></i>
+                  </button>
+                    <i class="glyphicon glyphicon-search"></i>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <div class="row test" style="margin: 0px;">
+      <div class="col-md-8" style="padding: 0px;">
+        <div class="" style="margin: 0px;padding:0px;width:100%;">
+          <div id="myCarousel" class="carousel slide" data-ride="carousel" style="width:100%;
+             position: relative;">
+            <!-- Indicators -->
+            <ol class="carousel-indicators" style="background-position: center; opacity:1;" >
+                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                <li data-target="#myCarousel" data-slide-to="1"></li>
+                <li data-target="#myCarousel" data-slide-to="2"></li>
+                <li data-target="#myCarousel" data-slide-to="3"></li>
+            </ol>
+            <div class="carousel-inner" style="height: 400px;">
+              <div class="item active">
+                <img src="img/img5.jpeg" style="width:100%; height: 400px;">
+              </div>
+
+              <div class="item">
+                <img src="img/imgg2.jpeg"  style="width:100%; height: 400px;">
+              </div>
+
+              <div class="item">
+                <img src="img/imggg3.jpeg"  style="width:100%; height: 400px;">
+              </div>
+              <div class="item">
+                <img src="img/img4.jpeg" style="width: 100%; height: 400px;">
+              </div>
+            </div>
+            <a class="left carousel-control" href="#myCarousel" data-slide="prev" style="opacity: 0.9;width: 0px;">
+              <span class="left" style="cursor: pointer;position: absolute;top: 45%;width:auto;padding: 16px;padding-left:10px ; margin-top: -22px;color: white;font-weight: bold;font-size: 18px;transition: 0.6s ease;border-radius: 0 3px 3px 0;left: 0">&#10094;</span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#myCarousel" data-slide="next" style="opacity: 0.9;width: 0px;">
+              <span class="right" style="cursor: pointer;position: absolute;top: 45%;width: auto;padding: 16px;  margin-top: -22px;color: white;font-weight: bold;font-size: 18px;transition: 0.6s ease;  border-radius: 3 0px 0px 3;right: 0;">&#10095;</span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4" style="">
+        <div class="article-active" style="margin-top: 30px;">
+          Articles
+        </div>
+        <ul class="articles-list" style="height:325px; overflow-y: auto;">
+          <li>
+            <div class="row" style="margin: 0px;">
+              <div class="col-md-2 col-sm-2 col-xs-2">
+                <div class="" style="margin: 10px; background-color: #0b3e52; height: 50px; width: 50px;">
+                  <div style="font-size: 18px; color: white; text-align: center;">
+                    29
+                  </div>
+                  <span style="font-size: 15px; color: white; padding: 0px 13px;">Jan</span>
+                </div>
+              </div>
+              <div class="col-md-10 col-sm-10 col-xs-10">
+                <p data-toggle="modal" data-target="#myModal1" style="cursor: pointer; padding: 10px 10px 0px 10px; font-size: 12px; margin: 0px;">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  Nunc quis posuere nibh.
+                </p>
+                <span style="font-size: 12px; float: right; padding: 0px 15px;">1.1k views</span>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="row" style="margin: 0px;">
+              <div class="col-md-2 col-sm-2 col-xs-2">
+                <div class="" style="margin: 10px; background-color: #0b3e52; height: 50px; width: 50px;">
+                  <div style="font-size: 18px; color: white; text-align: center;">
+                    29
+                  </div>
+                  <span style="font-size: 15px; color: white; padding: 0px 13px;">Jan</span>
+                </div>
+              </div>
+              <div class="col-md-10 col-sm-10 col-xs-10">
+                <p data-toggle="modal" data-target="#myModal1" style="cursor: pointer; padding: 10px 10px 0px 10px; font-size: 12px; margin: 0px;">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  Nunc quis posuere nibh.
+                </p>
+                <span style="font-size: 12px; float: right; padding: 0px 15px;">1.1k views</span>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="row" style="margin: 0px;">
+              <div class="col-md-2 col-sm-2 col-xs-2">
+                <div class="" style="margin: 10px; background-color: #0b3e52; height: 50px; width: 50px;">
+                  <div style="font-size: 18px; color: white; text-align: center;">
+                    29
+                  </div>
+                  <span style="font-size: 15px; color: white; padding: 0px 13px;">Jan</span>
+                </div>
+              </div>
+              <div class="col-md-10 col-sm-10 col-xs-10">
+                <p data-toggle="modal" data-target="#myModal1" style="cursor: pointer; padding: 10px 10px 0px 10px; font-size: 12px; margin: 0px;">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  Nunc quis posuere nibh.
+                </p>
+                <span style="font-size: 12px; float: right; padding: 0px 15px;">1.1k views</span>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="row" style="margin: 0px;">
+              <div class="col-md-2 col-sm-2 col-xs-2">
+                <div class="" style="margin: 10px; background-color: #0b3e52; height: 50px; width: 50px;">
+                  <div style="font-size: 18px; color: white; text-align: center;">
+                    29
+                  </div>
+                  <span style="font-size: 15px; color: white; padding: 0px 13px;">Jan</span>
+                </div>
+              </div>
+              <div class="col-md-10 col-sm-10 col-xs-10">
+                <p data-toggle="modal" data-target="#myModal1" style="cursor: pointer; padding: 10px 10px 0px 10px; font-size: 12px; margin: 0px;">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  Nunc quis posuere nibh.
+                </p>
+                <span style="font-size: 12px; float: right; padding: 0px 15px;">1.1k views</span>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="row" style="margin: 0px;">
+              <div class="col-md-2 col-sm-2 col-xs-2">
+                <div class="" style="margin: 10px; background-color: #0b3e52; height: 50px; width: 50px;">
+                  <div style="font-size: 18px; color: white; text-align: center;">
+                    29
+                  </div>
+                  <span style="font-size: 15px; color: white; padding: 0px 13px;">Jan</span>
+                </div>
+              </div>
+              <div class="col-md-10 col-sm-10 col-xs-10">
+                <p data-toggle="modal" data-target="#myModal1" style="cursor: pointer; padding: 10px 10px 0px 10px; font-size: 12px; margin: 0px;">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  Nunc quis posuere nibh.
+                </p>
+                <span style="font-size: 12px; float: right; padding: 0px 15px;">1.1k views</span>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="row" style="margin: 0px;">
+              <div class="col-md-2 col-sm-2 col-xs-2">
+                <div class="" style="margin: 10px; background-color: #0b3e52; height: 50px; width: 50px;">
+                  <div style="font-size: 18px; color: white; text-align: center;">
+                    29
+                  </div>
+                  <span style="font-size: 15px; color: white; padding: 0px 13px;">Jan</span>
+                </div>
+              </div>
+              <div class="col-md-10 col-sm-10 col-xs-10">
+                <p data-toggle="modal" data-target="#myModal1" style="cursor: pointer; padding: 10px 10px 0px 10px; font-size: 12px; margin: 0px;">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  Nunc quis posuere nibh.
+                </p>
+                <span style="font-size: 12px; float: right; padding: 0px 15px;">1.1k views</span>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="row" style="margin: 0px;">
+              <div class="col-md-2 col-sm-2 col-xs-2">
+                <div class="" style="margin: 10px; background-color: #0b3e52; height: 50px; width: 50px;">
+                  <div style="font-size: 18px; color: white; text-align: center;">
+                    29
+                  </div>
+                  <span style="font-size: 15px; color: white; padding: 0px 13px;">Jan</span>
+                </div>
+              </div>
+              <div class="col-md-10 col-sm-10 col-xs-10">
+                <p data-toggle="modal" data-target="#myModal1" style="cursor: pointer; padding: 10px 10px 0px 10px; font-size: 12px; margin: 0px;">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  Nunc quis posuere nibh.
+                </p>
+                <span style="font-size: 12px; float: right; padding: 0px 15px;">1.1k views</span>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="row" style="margin: 0px;">
+              <div class="col-md-2 col-sm-2 col-xs-2">
+                <div class="" style="margin: 10px; background-color: #0b3e52; height: 50px; width: 50px;">
+                  <div style="font-size: 18px; color: white; text-align: center;">
+                    29
+                  </div>
+                  <span style="font-size: 15px; color: white; padding: 0px 13px;">Jan</span>
+                </div>
+              </div>
+              <div class="col-md-10 col-sm-10 col-xs-10">
+                <p data-toggle="modal" data-target="#myModal1" style="cursor: pointer; padding: 10px 10px 0px 10px; font-size: 12px; margin: 0px;">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  Nunc quis posuere nibh.
+                </p>
+                <span style="font-size: 12px; float: right; padding: 0px 15px;">1.1k views</span>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="row" style="margin: 0px;">
+              <div class="col-md-2 col-sm-2 col-xs-2">
+                <div class="" style="margin: 10px; background-color: #0b3e52; height: 50px; width: 50px;">
+                  <div style="font-size: 18px; color: white; text-align: center;">
+                    29
+                  </div>
+                  <span style="font-size: 15px; color: white; padding: 0px 13px;">Jan</span>
+                </div>
+              </div>
+              <div class="col-md-10 col-sm-10 col-xs-10">
+                <p data-toggle="modal" data-target="#myModal1" style="cursor: pointer; padding: 10px 10px 0px 10px; font-size: 12px; margin: 0px;">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  Nunc quis posuere nibh.
+                </p>
+                <span style="font-size: 12px; float: right; padding: 0px 15px;">1.1k views</span>
+              </div>
+            </div>
+          <li>
+          <li>
+            <div class="row" style="margin: 0px;">
+              <div class="col-md-2 col-sm-2 col-xs-2">
+                <div class="" style="margin: 10px; background-color: #0b3e52; height: 50px; width: 50px;">
+                  <div style="font-size: 18px; color: white; text-align: center;">
+                    29
+                  </div>
+                  <span style="font-size: 15px; color: white; padding: 0px 13px;">Jan</span>
+                </div>
+              </div>
+              <div class="col-md-10 col-sm-10 col-xs-10">
+                <p data-toggle="modal" data-target="#myModal1" style="cursor: pointer; padding: 10px 10px 0px 10px; font-size: 12px; margin: 0px;">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  Nunc quis posuere nibh.
+                </p>
+                <span style="font-size: 12px; float: right; padding: 0px 15px;">1.1k views</span>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="row" style="margin: 0px;">
+              <div class="col-md-2 col-sm-2 col-xs-2">
+                <div class="" style="margin: 10px; background-color: #0b3e52; height: 50px; width: 50px;">
+                  <div style="font-size: 18px; color: white; text-align: center;">
+                    29
+                  </div>
+                  <span style="font-size: 15px; color: white; padding: 0px 13px;">Jan</span>
+                </div>
+              </div>
+              <div class="col-md-10 col-sm-10 col-xs-10">
+                <p data-toggle="modal" data-target="#myModal1" style="cursor: pointer; padding: 10px 10px 0px 10px; font-size: 12px; margin: 0px;">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  Nunc quis posuere nibh.
+                </p>
+                <span style="font-size: 12px; float: right; padding: 0px 15px;">1.1k views</span>
+              </div>
+            </div>
+          </li>
+          <li class="article-last"><a href="#" style="text-align: center;">(View More)</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="container" style="height: 100%;">
+      <div class="row">
+        <div class="col-md-12 col-xs-12 col-sm-12">
+          <div style="text-align: center; margin-bottom: 50px;">
+            <h1>Analytics</h1>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+
+        </div>
+        <div class="col-md-8">
+          <div class="graphs" style="padding-top: 40px;height: 400px; width:100%;">
+            <!--Graphs-->
+            <canvas id="myChart" style=""></canvas>
+          </div>
+        </div>
+        <div class="col-md-2">
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal for article-->
+    <div id="myModal1" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Lorem ipsum dolor sit amet, consectetur adipiscing elit</h4>
+          </div>
+          <div class="modal-body" style="overflow-y: auto; height: 400px;">
+            <p style="text-align: justify;">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis tincidunt quam eget feugiat bibendum. Nunc eget justo a risus commodo rutrum. Duis faucibus urna sit amet feugiat ultricies. Donec non pulvinar lectus. Donec interdum blandit justo, vel porta risus suscipit iaculis. Aliquam molestie ante sit amet ex facilisis, sit amet porta libero ornare. Maecenas in ex fringilla, pellentesque lectus luctus, ullamcorper est. Aliquam venenatis sem a libero pellentesque hendrerit vitae ac dui. Sed vel posuere quam, at molestie leo. Ut pulvinar tellus sed sem congue commodo. Cras efficitur pharetra consequat. Nunc ultricies aliquam mi, vitae placerat massa. Morbi porta dui risus, quis finibus tellus feugiat eu. Suspendisse facilisis, tortor id cursus luctus, diam lectus hendrerit mi, at dictum lacus ligula at elit.
+
+              Sed eget sem quis ligula sollicitudin mollis. Mauris eu ultricies tellus, id sodales arcu. In egestas porta hendrerit. Proin eu felis sed nulla sodales finibus sit amet et lectus. Phasellus nisl velit, venenatis at condimentum ut, bibendum vitae augue. Praesent sem elit, ornare ac risus sed, luctus semper massa. Fusce porta libero commodo tincidunt iaculis. Aliquam urna lectus, aliquam nec sem quis, mollis varius urna. Etiam blandit nibh nunc, in aliquet nisl egestas vitae. Nulla ac justo vitae sapien ultricies fermentum ac vitae quam.
+
+              Nulla eget odio ultricies, sollicitudin sem ut, semper nisi. Nullam mollis diam sit amet condimentum blandit. Donec molestie urna augue, vitae vehicula risus iaculis ac. Nulla odio est, dictum et cursus at, convallis et est. Morbi et nisi et dui aliquam efficitur. Ut ac aliquam nisi. Donec finibus purus in mi hendrerit, nec interdum ex commodo. Praesent congue vestibulum arcu, nec consectetur dui iaculis nec. Donec aliquam tristique quam, ac scelerisque purus ornare quis. Aliquam erat volutpat. Morbi elementum scelerisque metus, non congue ipsum porta eu.
+
+              Nulla aliquam dolor justo. Quisque viverra sit amet enim eu ultrices. Nunc mi nulla, faucibus sit amet neque sit amet, tincidunt ornare ipsum. Nunc aliquam, arcu non blandit imperdiet, mi tellus vehicula mauris, vitae fringilla purus erat sed tellus. Pellentesque tincidunt aliquet lacus, quis vulputate tortor consequat in. In hac habitasse platea dictumst. Nulla sed risus et justo interdum tristique sit amet ac ligula. Donec molestie nulla et ante varius, at bibendum dolor dictum. Integer lobortis nec urna nec accumsan. Praesent dignissim est non porta varius. Aenean sed mattis ante. Nunc rhoncus tellus porttitor nibh bibendum ultrices.
+
+              In eu felis sit amet mauris pharetra egestas. Sed ultrices, felis at dapibus lobortis, magna quam mattis elit, ac faucibus neque ex elementum purus. Mauris ultrices nulla id blandit pellentesque. Donec congue imperdiet varius. Vivamus et nisl sit amet velit congue tristique et eu libero. Etiam a magna eget ante consequat eleifend quis vel odio. Cras accumsan egestas augue a tristique. Morbi vel nisi nec velit finibus finibus. Quisque fermentum velit placerat felis egestas, sit amet posuere eros molestie. Proin at interdum nibh, vel ornare leo.
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+     <!--Modal for Sign up and Sign In-->
+    <div class="modal fade" style="margin-top:30px;" id="myModal" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content" style="background-color: #001223f7;">
+          <div id="loginbox">
+            <div class="modal-header" style="border-bottom-width: 0px; ">
+              <h4 class="modal-title" style="color:#d3ddf1;">Login Here</h4>
+            </div>
+            <div class="modal-body">
+              <form method="post" id="login-form" style="padding: 10px;">
+                <fieldset>
+                  <div class="form-group">
+                    <input type="text" id="login-email" class="form-control text" name="login-email" value="" placeholder="Email">
+                  </div>
+                  <div class="form-group">
+                    <input type="password" id="login-password" class="form-control text" name="login-password" value="" placeholder="Password" >
+                  </div>
+                  <div class="checkbox">
+                    <label style="color:#d3ddf1;"><input type="checkbox" name="checkbox" name="remember-me" value="1" checked> Remember me</label>
+                  </div>
+                  <button type="submit" id="login-btn" class="btn btn-default" name="button">Log In</button>
+                </fieldset>
+              </form>
+              <div class="" style="color:white; padding-left: 1.5%;">
+                Don't have an account? <a style="cursor: pointer;" onclick="$('#loginbox').hide(); $('#signupbox').show()">Sign up Here</a>
+              </div>
+            </div>
+          </div>
+          <div id="signupbox" style="display: none;">
+            <div class="modal-header" style="border-bottom-width: 0px; ">
+              <h4 class="modal-title" style="color:#d3ddf1;">Sign Up Here</h4>
+            </div>
+            <div class="modal-body">
+              <form method="post" id="signup-form" style="padding: 10px;">
+                <fieldset>
+                  <div class="form-group">
+                    <input type="text" id="signup-firstname" class="form-control text" name="signup-firstname" value="" placeholder="First Name">
+                  </div>
+                  <div class="form-group">
+                    <input type="text" id="signup-lastname" class="form-control text" name="signup-lastname" value="" placeholder="Last Name">
+                  </div>
+                  <div class="form-group">
+                    <input type="text" id="signup-email" class="form-control text" name="signup-email" value="" placeholder="Email">
+                  </div>
+                  <div class="form-group">
+                    <input type="text" id="signup-username" class="form-control text" name="signup-username" value="" placeholder="Username">
+                  </div>
+                  <div class="form-group">
+                    <input type="password" id="signup-password" class="form-control text" name="signup-password" value="" placeholder="Password" >
+                  </div>
+                  <div class="form-group">
+                    <input type="password" id="signup-retype-password" class="form-control text" name="signup-retype-password" value="" placeholder="Re-type Password">
+                  </div>
+                  <button type="submit" id="signup-btn" style="width: auto;" class="btn btn-default" name="button">Sign Up</button>
+                </fieldset>
+              </form>
+              <div class="" style="color:white; padding-left: 1.5%;">
+                Already Have an Account? <a style="cursor: pointer;" onclick="$('#signupbox').hide(); $('#loginbox').show()">Log In Here</a>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer" style="border-top-width: 0px;">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12">
+        <div class="container wrapper" style="width: 100%;">
+          <div class="row">
+            <div class="col-xs-12 child">
+              <div class="carousel slide" id="carousel-gen" data-ride="caraousel">
+                <ol class="carousel-indicators hidden-xs" style="z-index: 1;">
+                  <li data-target="#carousel-gen" data-slide-to="0" class="active"></li>
+                  <li data-target="#carousel-gen" data-slide-to="1"></li>
+                </ol>
+                <div class="carousel-inner hidden-xs" role="listbox">
+                  <div class="item active">
+                    <div class="row">
+                      <div class="col-sm-2">
+                        <a href="#" class="thumbnail">
+                          <img src="img/img5.jpeg" alt="" />
+                           <div class="desc">
+                            <p>this is the</p><br>
+                            <p>this is he</p><br>
+                            <p>thi is he</p><br>
+                           </div>
+                        </a>
+                      </div>
+                      <div class="col-sm-2">
+                        <a href="#" class="thumbnail">
+                          <img src="img/img5.jpeg" alt="" />
+                           <div class="desc">
+                            <p>this is the</p><br>
+                            <p>this is he</p><br>
+                            <p>thi is he</p><br>
+                           </div>
+                        </a>
+                      </div>
+                      <div class="col-sm-2">
+                        <a href="#" class="thumbnail">
+                          <img src="img/img5.jpeg" alt="" />
+                          <div class="desc">
+                            <p>this is the</p><br>
+                            <p>this is he</p><br>
+                            <p>thi is he</p><br>
+                           </div>
+                        </a>
+                      </div>
+                      <div class="col-sm-2">
+                        <a href="#" class="thumbnail">
+                          <img src="img/img5.jpeg" alt="" />
+                          <div class="desc">
+                            <p>this is the</p><br>
+                            <p>this is he</p><br>
+                            <p>thi is he</p><br>
+                           </div>
+                        </a>
+                      </div>
+                      <div class="col-sm-2">
+                        <a href="#" class="thumbnail">
+                          <img src="img/img5.jpeg" alt="" />
+                          <div class="desc">
+                            <p>this is the</p><br>
+                            <p>this is he</p><br>
+                            <p>thi is he</p><br>
+                           </div>
+                        </a>
+                      </div>
+                      <div class="col-sm-2">
+                        <a href="#" class="thumbnail">
+                          <img src="img/img5.jpeg" alt="" />
+                          <div class="desc">
+                            <p>this is the</p><br>
+                            <p>this is he</p><br>
+                            <p>thi is he</p><br>
+                           </div>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div class="row">
+                      <div class="col-sm-2">
+                        <a href="#" class="thumbnail">
+                          <img src="img/img5.jpeg" alt="" />
+                          <div class="desc">
+                            <p>this is the</p><br>
+                            <p>this is he</p><br>
+                            <p>thi is he</p><br>
+                           </div>
+                        </a>
+                      </div>
+                      <div class="col-sm-2">
+                        <a href="#" class="thumbnail">
+                          <img src="img/img5.jpeg" alt="" />
+                          <div class="desc">
+                            <p>this is the</p><br>
+                            <p>this is he</p><br>
+                            <p>thi is he</p><br>
+                           </div>
+                        </a>
+                      </div>
+                      <div class="col-sm-2">
+                        <a href="#" class="thumbnail">
+                          <img src="img/img5.jpeg" alt="" />
+                          <div class="desc">
+                            <p>this is the</p><br>
+                            <p>this is he</p><br>
+                            <p>thi is he</p><br>
+                           </div>
+                        </a>
+                      </div>
+                      <div class="col-sm-2">
+                        <a href="#" class="thumbnail">
+                          <img src="img/img5.jpeg" alt="" />
+                          <div class="desc">
+                            <p>this is the</p><br>
+                            <p>this is he</p><br>
+                            <p>thi is he</p><br>
+                           </div>
+                        </a>
+                      </div>
+                      <div class="col-sm-2">
+                        <a href="#" class="thumbnail">
+                          <img src="img/img5.jpeg" alt="" />
+                          <div class="desc">
+                            <p>this is the</p><br>
+                            <p>this is he</p><br>
+                            <p>thi is he</p><br>
+                           </div>
+                        </a>
+                      </div>
+                      <div class="col-sm-2">
+                        <a href="#" class="thumbnail">
+                          <img src="img/img5.jpeg" alt="" />
+                          <div class="desc">
+                            <p>this is the</p><br>
+                            <p>this is he</p><br>
+                            <p>thi is he</p><br>
+                           </div>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <a class="left carousel-control" href="#carousel-gen" data-slide="prev" style="opacity: 0.9;width: 0px;">
+                  <span class="left" style="cursor: pointer;position: absolute;top: 45%;width:auto;padding: 16px;padding-left:10px ; margin-top: -22px;color: white;font-weight: bold;font-size: 18px;transition: 0.6s ease;border-radius: 0 3px 3px 0;left: 5px;">&#10094;</span>
+                  <span class="sr-only">Previous</span>
+                </a>
+                <a class="right carousel-control" href="#carousel-gen" data-slide="next" style="opacity: 0.9;width: 0px;">
+                  <span class="right" style="cursor: pointer;position: absolute;top: 45%;width: auto;padding: 16px;  margin-top: -22px;color: white;font-weight: bold;font-size: 18px;transition: 0.6s ease;  border-radius: 3 0px 0px 3;right: 5px;">&#10095;</span>
+                  <span class="sr-only">Next</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+   <button onclick="topFunction()" id="myBtn" title="Back to top"><span class="glyphicon glyphicon-arrow-up"></span></button>
+    <div class="chatbox chatbox--tray chatbox--empty" style="border-radius: 0px; z-index: 1300;">
+       <div class="chatbox__title">
+           <h5><a href="#">Chat</a></h5>
+           <button class="chatbox__title__tray">
+             <span></span>
+           </button>
+           <button class="chatbox__title__close">
+             <span>
+                <svg viewBox="0 0 12 12" width="12px" height="12px">
+                    <line stroke="#FFFFFF" x1="11.75" y1="0.25" x2="0.25" y2="11.75"></line>
+                    <line stroke="#FFFFFF" x1="11.75" y1="11.75" x2="0.25" y2="0.25"></line>
+                </svg>
+             </span>
+           </button>
+        </div>
+        <div class="chatbox__body">
+        <div class="chatbox__body__message chatbox__body__message--left">
+            <img src="https://s3.amazonaws.com/uifaces/faces/twitter/brad_frost/128.jpg" alt="Picture">
+            <p>yup</p>
+        </div>
+        <div class="chatbox__body__message chatbox__body__message--right">
+            <img src="https://s3.amazonaws.com/uifaces/faces/twitter/arashmil/128.jpg" alt="Picture">
+            <p>hlo</p>
+        </div>
+        <div class="chatbox__body__message chatbox__body__message--left">
+            <img src="https://s3.amazonaws.com/uifaces/faces/twitter/brad_frost/128.jpg" alt="Picture">
+            <p>hey</p>
+        </div>
+        <div class="chatbox__body__message chatbox__body__message--right">
+            <img src="https://s3.amazonaws.com/uifaces/faces/twitter/arashmil/128.jpg" alt="Picture">
+            <p>bye</p>
+        </div>
+        <div class="chatbox__body__message chatbox__body__message--right">
+            <img src="https://s3.amazonaws.com/uifaces/faces/twitter/arashmil/128.jpg" alt="Picture">
+            <p>tata</p>
+        </div>
+    </div>
+
+    <textarea class="chatbox__message" placeholder="Write Here.."></textarea>
+</div>
+
+<section id="follow" style="z-index: 0;">
+  <div class="col-md-12 social-icons">
+    <ul class="social-network social-circle">
+      <li><a target="_blank" href="https://www.facebook.com/" class="icoFacebook" title="Facebook"><i class="fa fa-facebook"></i></a></li>
+      <li><a target="_blank" href="https://business.google.com" class="icoGoogle" title="Google +"><i class="fa fa-google-plus"></i></a></li>
+      <li><a target="_blank" href="https://www.linkedin.com/" class="icoLinkedin" title="Linkedin"><i class="fa fa-linkedin"></i></a></li>
+      <li><a href="#" class="icoTwitter" title="Twitter"><i class="fa fa-twitter"></i></a></li>
+    </ul>
+    <p>copyright&copy Medicines 2018. All rights reserved.</p>
+  </div>
+</section>
+
+<script type="text/javascript">
+   window.onscroll=function() {scrollFunction()};
+
+  function scrollFunction()
+  {
+    if (document.body.scrollTop>20 || document.documentElement.scrollTop>20)
+    {
+      document.getElementById("myBtn").style.display = "block";
+    }
+    else
+    {
+      document.getElementById("myBtn").style.display = "none";
+    }
+  }
+  function topFunction()
+  {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+  };
+
+ /* window.onscroll = function() {myFunction()};
+
+var navbar = document.getElementById("navbar");
+var sticky = navbar.offsetTop;
+
+function myFunction() {
+  if (window.pageYOffset >= sticky) {
+    navbar.classList.remove("navbar-style");
+    navbar.classList.add("sticky");
+  } else {
+    navbar.classList.remove("sticky");
+    navbar.classList.add("navbar-style");
+  }
+}*/
+
+
+   (function($) {
+    $(document).ready(function() {
+        var $chatbox = $('.chatbox'),
+            $chatboxTitle = $('.chatbox__title'),
+            $chatboxTitleClose = $('.chatbox__title__close');
+
+        $chatboxTitle.on('click', function() {
+            $chatbox.toggleClass('chatbox--tray');
+        });
+        $chatboxTitleClose.on('click', function(e) {
+            e.stopPropagation();
+            $chatbox.addClass('chatbox--closed');
+        });
+        $chatbox.on('transitionend', function() {
+            if ($chatbox.hasClass('chatbox--closed')) $chatbox.remove();
+             $chatbox.removeClass('chatbox--empty');
+        });
+
+    });
+})(jQuery);
+var ctx = document.getElementById("myChart").getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"], //x-axis pts
+            datasets: [{
+                label: '# of Votes',
+                data: [12000, 19000, 3000, 5000, 2000, 3000],   //y-axis pts
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:true
+                    }
+                }]
+            }
+        }
+    });
+
+</script>
+  </body>
+</html>

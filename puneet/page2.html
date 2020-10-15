@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="shortcut icon" href="img/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="css/page2.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/chatbox.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.js"></script>
+    <script type="text/javascript" src="js/page2.js"></script>
+    <title>DCJ</title>
+    <style>
+
+    body {
+			font-family: 'Open Sans', sans-serif;
+		}
+
+    .affix {
+        top: 0;
+        width: 100%;
+        z-index: .9999 !important;
+      }
+
+      .affix + .container-fluid {
+        padding-top: 70px;
+      }
+    .form-control:focus
+      {
+        box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.02);
+      }
+      .text
+      {
+        border-top-width: 0px;
+        border-right-width: 0px;
+        border-left-width:0px;
+        border-color: #7b97e2f0;
+        background-color: #0000000f;
+        border-radius: 0px;
+        color: #fff;
+      }
+      .btn-default
+      {
+        color: #d2e3fd;
+        background-color: #4a80ceab;
+        border-color: #ccc0;
+      }
+      .btn-default:hover
+      {
+        background-color: #4a80ceab;
+        color: black;
+      }
+      .col-sm-3
+      {
+        height: 30%;
+      }
+      .thumbnail:hover
+      {
+        text-decoration: none;
+      }
+
+      .search-form ul {
+        display: none;
+        position: absolute;
+        background-color: #fff;
+        z-index: 1000;
+        top: 34px;
+        list-style-type: none;
+        width: inherit;
+        border-radius: 0px 0px 2px 2px;
+        box-shadow:2px 3px 5px -1px rgba(0, 0, 0, .5);
+        padding: 0px;
+      }
+
+      .search-form ul li a{
+        text-decoration: none;
+        color: black;
+        cursor: default;
+      }
+
+      .search-form ul li {
+        padding: 5px 10px;
+      }
+
+      .search-form ul li:hover {
+        background-color: #f1f3f6;
+      }
+
+      .select {
+        background-color: #f1f3f6;
+      }
+      .logo
+      {
+        width: 180px;
+      }
+       .delete
+     {
+       width: 35%;
+       padding:5px 15px;
+       height: 35px;
+       box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
+       background-color: #ff6f2b;
+       color:#fff;
+       /*border-width: 1px;
+       border-color: red;*/
+       border: none;
+       float:right;
+       width: 100%;
+     }
+      .thumbnail
+     {
+
+       height:auto;
+       width: 580px;
+       border-color: #fff;
+       box-shadow: 0 2px 4px 0 rgba(35,16,16,.5);
+       cursor: pointer;
+     }
+      #price
+      {
+        text-align:right;
+        color: #441a1a;
+      }
+       .head
+      {
+        color: #00256b;
+      }
+
+      #save-txt {
+        margin-left: 5px;
+        transform: scale(0.6);
+        animation: save 0.7s infinite alternate;
+      }
+
+      @keyframes save {
+        to{
+          transform: scale(1);
+        }
+      }
+
+      #mydropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #fff;
+        width: auto;
+        margin-left: 80px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        padding: 12px 16px;
+        z-index: 100;
+      }
+
+      #mydropdown:hover #mydropdown-content {
+        display: block;
+      }
+      .navigation-header #mydropdown:hover {
+        height: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <header style="width: 100%;z-index: 0;">
+      <nav class="navbar navbar-style" style="border-radius: 0; margin-bottom: 0;">
+        <div class="container-fluid">
+          <div class="navbar-header logo" style="padding-left: 0%;">
+            <a href="index.php"><img src="img/mos_logo.png" alt="logo" style="width: 100%"></a>
+            <button type="button" style="margin: 0;" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+              <i class="fa fa-bars"></i>
+            </button>
+          </div>
+          <div class="collapse navbar-collapse" id="myNavbar">
+            <ul id="collapse-list">
+              <li><a href="index.php" style="font-size: 15px;"><span><i class="fa fa-home"></i></span> <span class="icon-info">Home</span></a></li>
+              <li><a href="#articles" style="font-size: 15px;"><span><i class="fa fa-newspaper-o"></i></span> <span class="icon-info">Articles</span></a></li>
+              <li id="login-li" style="display: none;"><a href="#"  style="font-size: 15px;" data-toggle="modal" data-target="#myModal"><span><i class="fa fa-sign-in"></i></span> <span class="icon-info">Login / Sign Up</span></a></li>
+              <li id="user-li" style="text-align: center; display: none;">
+                <div id="mydropdown">
+                  <a><span>Username</span></a>
+                  <div id="mydropdown-content">
+                    <a href="my_orders" style="color: black; padding: 5px;">My Orders</a>
+                    <a href="php/logout.php" style="color: black; padding: 5px;">Log out</a>
+                  </div>
+                </div>
+              </li>
+              <li><a href="cart" style="font-size: 15px;"><i class="fa fa-shopping-cart"></i><span id="cart_no_of_items" style="visibility: hidden; padding: 1px 3px;position: relative; bottom: 10px; width: 18px; height: 18px; border-radius: 50%; background-color: yellow; color: black; font-size: 12px; font-weight: bold;">0</span></a></li>
+              <li><a href="#" style="font-size: 15px;">Need Help?</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <nav class="navbar navbar-style" id="navbar" data-spy="affix" data-offset-top="80" style="border-radius: 0px;margin-bottom: 0px;z-index: 30;">
+        <div class="container-fluid">
+          <div class="col-md-2 col-xs-4 location">
+            <a href="#" style="color: white;"><i class="fa fa-map-marker"></i> <span>New Delhi</span></a>
+          </div>
+          <div class="col-md-10 col-xs-8" style="padding: 0px;">
+            <form class="search-form" id="search-form" action="/action_page.php">
+              <div class="input-group search-input" style="">
+                <input type="text" id="search-med" autocomplete="off" class="form-control" placeholder="Search Medicines Here..." name="search" style="border-top-width:0px;border-bottom-width:2px;border-right-width:0px;border-left-width:0px;background-color: #76abfb00;border-color:#0a4cb7; color:#cdd2e2; font-family:Verdana, Geneva, sans-serif;border-radius: 0px;">
+                <ul>
+                  <li id="0" class="select" onclick="redirect(0);"><a></a></li>
+                  <li id="1" onclick="redirect(1);"><a></a></li>
+                  <li id="2" onclick="redirect(2);"><a></a></li>
+                  <li id="3" onclick="redirect(3);"><a></a></li>
+                </ul>
+                <div class="input-group-btn">
+                  <button class="btn btn-default" type="submit" style="background-color: #082c699c;border-color: #0a4cb7;color:#cdd2e2;width: 34px;border-radius: 50%;padding-left: 6px;padding-right: 6px;margin-left: 5px;">
+                    <i class="glyphicon glyphicon-search"></i>
+                  </button>
+                    <i class="glyphicon glyphicon-search"></i>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+   <!--   <div class="col-md-1" style="height: 100%;">
+        <div class="column" style="height: 20%">
+
+        </div>
+        <div class="category">
+          <h4>Categories</h4><br>
+           <div class="checkbox">
+            <label><input type="checkbox" name="checkbox" value="1" checked>Drug</label><br>
+            <label><input type="checkbox" name="checkbox" value="0" checked>Abcd</label><br>
+            <label><input type="checkbox" name="checkbox" value="0" checked>Abcd</label><br>
+            <label><input type="checkbox" name="checkbox" value="1" checked>Abcd</label><br>
+           </div>
+        </div>
+      </div>-->
+      <div class="col-md-11" style="height: 5%;">
+
+      </div>
+      <div class="row" id="medicines-grid" style="margin: 0px;">
+        <!--<div class="col-md-12">
+          <div class="container-wrapper">
+            <div class="thumbnail center-block">
+              <a href="#">
+                <div class="row" style="margin: 0;">
+                  <div class="col-md-8">
+                    <h4 id="" style="font-family: serif;">NAME</h4>
+                    <h5 id="" class="head">COMPANY NAME</h5>
+                  </div>
+                  <div class="col-md-4">
+                    <h5 style="" id="price">PRICE : &#8377; <span>28000</span></h5>
+                    <h5 style="" id="price"><strike>PRICE : &#8377; <span>28000</span></strike></h5>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="row">
+                      <div class="col-md-8">
+                          <h5 id="" class="head">SUB-CATEGORY</h5>
+                      </div>
+                      <div class="col-md-4" style="text-align:right;">
+                          <h5 style="color:#167943;">SAVE UPTO 5%</h5>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </a>
+              <div class="row">
+                <div class="col-md-12">
+                   <button type="button" id="delete" name="button" class="delete"><i class="fa fa-shopping-cart" style="padding-right: 10px;bottom: 0;"></i>ADD TO CART</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>-->
+      </div>
+      <!--<div class="col-md-10">
+        <div class="container wrapper" style="width:100%;">
+          <div class="row">
+            <div class="col-8-xs child">
+              <div class="item active">
+                <div class="row">
+                  <div class="col-sm-3">
+                    <a href="#" class="thumbnail">
+                      <img src="img5.jpeg" alt="" />
+                       <div class="desc">
+                           <p class="mname">NAME</p><br>
+                          <label class="mprice col-md-6">&#8377; 28000</label>
+                          <label class="col-md-6" style="padding-left: 25px; padding-right: 0px;">
+                            <div class="mrate">
+                              <span class="fa fa-star checked"></span>
+                              <span class="fa fa-star checked"></span>
+                              <span class="fa fa-star checked"></span>
+                              <span class="fa fa-star"></span>
+                              <span class="fa fa-star"></span>
+                            </div>
+                          </label><br>
+                          <button class="mcart">ADD TO CART</button>
+                       </div>
+                    </a>
+                  </div>
+                  <div class="col-sm-3">
+                    <a href="#" class="thumbnail">
+                      <img src="img5.jpeg" alt="" />
+                        <div class="desc">
+                          <p class="mname">NAME</p><br>
+                          <label class="mprice col-md-6">&#8377; 28000</label>
+                          <label class="col-md-6" style="padding-left: 25px; padding-right: 0px;">
+                            <div class="mrate">
+                              <span class="fa fa-star checked"></span>
+                              <span class="fa fa-star checked"></span>
+                              <span class="fa fa-star checked"></span>
+                              <span class="fa fa-star"></span>
+                              <span class="fa fa-star"></span>
+                            </div>
+                          </label><br>
+                          <button class="mcart">ADD TO CART</button>
+                        </div>
+                    </a>
+                  </div>
+                  <div class="col-sm-3">
+                    <a href="#" class="thumbnail">
+                      <img src="img5.jpeg" alt="" />
+                        <div class="desc">
+                           <p class="mname">NAME</p><br>
+                          <label class="mprice col-md-6">&#8377; 28000</label>
+                          <label class="col-md-6" style="padding-left: 25px; padding-right: 0px;">
+                            <div class="mrate">
+                              <span class="fa fa-star checked"></span>
+                              <span class="fa fa-star checked"></span>
+                              <span class="fa fa-star checked"></span>
+                              <span class="fa fa-star"></span>
+                              <span class="fa fa-star"></span>
+                            </div>
+                          </label><br>
+                          <button class="mcart">ADD TO CART</button>
+                        </div>
+                    </a>
+                  </div>
+                  <div class="col-sm-3">
+                    <a href="#" class="thumbnail">
+                      <img src="img5.jpeg" alt="" />
+                        <div class="desc">
+                         <p class="mname">NAME</p><br>
+                          <label class="mprice col-md-6">&#8377; 28000</label>
+                          <label class="col-md-6" style="padding-left: 25px; padding-right: 0px;">
+                            <div class="mrate">
+                              <span class="fa fa-star checked"></span>
+                              <span class="fa fa-star checked"></span>
+                              <span class="fa fa-star checked"></span>
+                              <span class="fa fa-star"></span>
+                              <span class="fa fa-star"></span>
+                            </div>
+                          </label><br>
+                          <button class="mcart">ADD TO CART</button>
+                        </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>-->
+
+     <!--Modal-->
+     <div class="modal fade" style="margin-top:30px;" id="myModal" role="dialog">
+       <div class="modal-dialog">
+
+         <!-- Modal content-->
+         <div class="modal-content" style="background-color: #001223f7;">
+           <div id="loginbox">
+             <div class="modal-header" style="border-bottom-width: 0px; ">
+               <h4 class="modal-title" style="color:#d3ddf1;">Login Here</h4>
+             </div>
+             <div class="modal-body">
+               <form method="post" id="login-form" style="padding: 10px;">
+                 <fieldset>
+                   <div class="form-group">
+                     <input type="text" id="login-email" class="form-control text" name="login-email" value="" placeholder="Email">
+                   </div>
+                   <div class="form-group">
+                     <input type="password" id="login-password" class="form-control text" name="login-password" value="" placeholder="Password" >
+                   </div>
+                   <div class="checkbox">
+                     <label style="color:#d3ddf1;"><input type="checkbox" name="checkbox" name="remember-me" value="1" checked> Remember me</label>
+                   </div>
+                   <button type="submit" id="login-btn" class="btn btn-default" name="button">Log In</button>
+                 </fieldset>
+               </form>
+               <div class="" style="color:white; padding-left: 1.5%;">
+                 Don't have an account? <a style="cursor: pointer;" onclick="$('#loginbox').hide(); $('#signupbox').show()">Sign up Here</a>
+               </div>
+             </div>
+           </div>
+           <div id="signupbox" style="display: none;">
+             <div class="modal-header" style="border-bottom-width: 0px; ">
+               <h4 class="modal-title" style="color:#d3ddf1;">Sign Up Here</h4>
+             </div>
+             <div class="modal-body">
+               <form method="post" id="signup-form" style="padding: 10px;">
+                 <fieldset>
+                   <div class="form-group">
+                     <input type="text" id="signup-firstname" class="form-control text" name="signup-firstname" value="" placeholder="First Name">
+                   </div>
+                   <div class="form-group">
+                     <input type="text" id="signup-lastname" class="form-control text" name="signup-lastname" value="" placeholder="Last Name">
+                   </div>
+                   <div class="form-group">
+                     <input type="text" id="signup-email" class="form-control text" name="signup-email" value="" placeholder="Email">
+                   </div>
+                   <div class="form-group">
+                     <input type="text" id="signup-username" class="form-control text" name="signup-username" value="" placeholder="Username">
+                   </div>
+                   <div class="form-group">
+                     <input type="password" id="signup-password" class="form-control text" name="signup-password" value="" placeholder="Password" >
+                   </div>
+                   <div class="form-group">
+                     <input type="password" id="signup-retype-password" class="form-control text" name="signup-retype-password" value="" placeholder="Re-type Password">
+                   </div>
+                   <button type="submit" id="signup-btn" style="width: auto;" class="btn btn-default" name="button">Sign Up</button>
+                 </fieldset>
+               </form>
+               <div class="" style="color:white; padding-left: 1.5%;">
+                 Already Have an Account? <a style="cursor: pointer;" onclick="$('#signupbox').hide(); $('#loginbox').show()">Log In Here</a>
+               </div>
+             </div>
+           </div>
+           <div class="modal-footer" style="border-top-width: 0px;">
+             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+           </div>
+         </div>
+       </div>
+     </div>
+     <!--<section id="follow" style="position: absolute; bottom: 0px;width: 100%;">
+      <div class="col-md-12 social-icons">
+        <ul class="social-network social-circle">
+          <li><a target="_blank" href="https://www.facebook.com/" class="icoFacebook" title="Facebook"><i class="fa fa-facebook"></i></a></li>
+          <li><a href="#" class="icoTwitter" title="Twitter"><i class="fa fa-twitter"></i></a></li>
+          <li><a target="_blank" href="https://business.google.com" class="icoGoogle" title="Google +"><i class="fa fa-google-plus"></i></a></li>
+          <li><a target="_blank" href="https://www.linkedin.com/" class="icoLinkedin" title="Linkedin"><i class="fa fa-linkedin"></i></a></li>
+        </ul>
+        <p>copyright&copy Medicines 2018. All rights reserved.</p>
+      </div>
+    </section>-->
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $("#med option").click(function(){
+          alert(this.html());
+        });
+      });
+    </script>
+</body>
+</html>

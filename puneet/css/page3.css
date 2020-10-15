@@ -1,0 +1,85 @@
+.detail
+{
+	margin-top: 60px;
+	margin-left: 50px;
+}
+
+.checked {
+	color: orange;
+}
+
+
+.btn-1 {
+    background-color: #ff6f2b;
+		width: 100%;
+    border: none;
+    color: white;
+    padding: 12px 16px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/*.btn-1:hover {
+    background-color: #24414c;
+}*/
+
+.btn-2 {
+    background-color: #ff6f2b;
+		width: 100%;
+    border: none;
+    color: white;
+    padding: 12px 16px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/*.btn-2:hover {
+    background-color: #24414c;
+}*/
+
+.btn-3 {
+    background-color: #ff6f2b;
+		width: 100%;
+    border: none;
+    padding: 12px 16px;
+    font-size: 16px;
+    cursor: pointer;
+		box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+		color: #2874f0;
+		font-weight: bold;
+}
+
+.btn-3:hover {
+		box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.4);
+    background-color: #fff;
+}
+
+textarea {
+  resize: none;
+}
+
+input[type="radio"] {
+  display: none;
+}
+
+ul.ratings {
+  padding:0;
+  margin:0;
+  font-size: 1.5em;
+}
+
+ul.ratings li {
+  display: inline;
+}
+
+ul.ratings li.active, ul.ratings li.secondary-active, ul.ratings li.checked, ul.ratings li.secondary-checked {
+  color: orange;
+}
+
+button:focus {
+	outline: none;
+}
+
+a:focus {
+	outline: none !important;
+}

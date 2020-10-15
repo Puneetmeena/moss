@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>admin</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="js/search_order.js"></script>
+		<script type="text/javascript" src="js/jquery.table2excel.js"></script>
+</head>
+<style type="text/css">
+    .thumbnail
+    {
+      margin: 0%;
+      border-radius: 0%;
+
+    }
+    .pagination a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color .3s;
+    border: 1px solid #ddd;
+}
+.rowHeader {
+    padding: 5px;
+    border: 1px solid #CCC;
+    line-height: 25px;
+    background-color: #EEE;
+    border-radius: 5px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+.order-history , .order-history tr, .order-history th, .order-history td {
+	border: 1px solid #8e898959;
+	border-collapse: collapse;
+}
+
+.order-history th, td {
+	width: auto;
+}
+
+.order-history tr {
+	padding: 5px;
+}
+</style>
+<body>
+    <div class="container text-center">
+    	<ul class="pagination">
+				<li><a href="php/redirector.php?pg=cc_queue" id="cc_queue_items">CC Queue <span class="badge">0</span></a></li>
+				<li><a href="javascript:void(0);" id="packaging_queue_items">Packaging Queue <span class="badge">0</span></a></li>
+				<li><a href="shipping_queue" id="shipping_queue_items">Shipping Queue <span class="badge">0</span></a></li>
+				<li><a href="managing_queue" id="manage_queue_items">Manage Delivery <span class="badge">0</span></a></li>
+				<li><a href="collection_queue" id="collection_queue_items">Collection Queue <span class="badge">0</span></a></li>
+				<li class="active"><a href="search_order">Seach Order</a></li>
+				<li><a href="#">Vendor Option</a></li>
+      </ul>
+			<a href="php/admin_logout.php" class="btn-default btn" style="float: right;margin-top: 20px;">Logout</a>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 thumbnail">
+							<form class="" action="javascript:void(0);" method="post">
+								<div class="col-md-12 ">
+										<div class="row">
+												<div class="col-md-2" style="padding: 0%;">
+														<p>Order Id/ Group Id</p>
+														<input type="text" id="filter-order-id" class="form-control" style="width: 100%;" name="id">
+												</div>
+												<div class="col-md-2" style="padding-right: 0%">
+														<p>Email-ID</p>
+														<input type="text" id="filter-email" class="form-control" name="email" style="width: 100%;">
+												</div>
+												<div class="col-md-2" style="padding-right: 0%;">
+														<p>Start Date</p>
+														<input type="date" id="filter-start-date" class="form-control" style="width: 100%;" name="id">
+												</div>
+												<div class="col-md-2" style="padding-right:0%;">
+														<p>End Date</p>
+														<input type="date" id="filter-end-date" class="form-control" style="width: 100%;" name="id">
+												</div>
+												<div class="col-md-2" style="padding-right:0%;">
+														<!--<select class="selectpicker" id="filter-order-by" style="padding:5px;">
+																<option value="" disabled selected>Choose Option</option>
+																<option value="Order Creation Time">Order Creation Time</option>
+																<option value="Order Queue Time">Order Queue Time</option>
+														</select>-->
+												</div>
+												<div class="col-md-2" style="text-align: right;">
+														<button class="" type="reset">Clear Filter</button><br>
+												</div>
+												<div class="col-md-4" style="text-align: right;">
+														<button class="btn btn-default" type="button" id="filter-form-btn" style="background-color:#337ab7;color:#fff;border-width:1px;padding:;">Search</button>
+												</div>
+										</div>
+								</div>
+								<div class="col-md-12 ">
+										<div class="row">
+												<div class="col-md-2" style="padding: 0%;">
+														<p>City</p>
+														<input type="text" id="filter-city" class="form-control" style="width: 100%;" name="id">
+												</div>
+												<div class="col-md-2" style="padding-right: 0%">
+														<p>Phone Number</p>
+														<input type="text" id="filter-phone-number" class="form-control" name="email" style="width: 100%;">
+												</div>
+												<div class="col-md-2" style="padding-right: 0%;">
+														<p>No. of Result Per Page</p>
+														<input type="text" id="filter-rpp" class="form-control" style="width: 100%;" name="id">
+												</div>
+												<div class="col-md-6"></div>
+										</div>
+								</div>
+							</form>
+                <div class="col-md-12" style="padding-left:0px;padding-bottom:2%;"><br>
+                <button>select all</button>
+                    <p style="font-weight: bold;">Status Selection Filter</p>
+                    <input type="checkbox" name="choose"><span>Vendor packaging</span>
+                    <input type="checkbox" name="checkbox"><span>To Be Delivered</span>
+                    <input type="checkbox" name="checkbox"><span>Out for delivery</span>
+                    <input type="checkbox" name="checkbox"><span>Delivered</span>
+                    <input type="checkbox" name="checkbox"><span>Cancelled</span>
+                </div>
+
+                <!--<div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-12">
+                            Order By:
+                            <select>
+                                <option>Oldest</option>
+                                <option>Newest</option>
+                            </select>
+                        </div>
+                    </div>
+                    <br>
+                </div>-->
+                <br><br>
+            </div>
+        </div>
+    </div>
+
+    <div  style="height:50px;"></div>
+
+<!--    <div class="container">
+        <div class="bulk-action mar-T10">
+            <span class="rowHeader">Bulk Actions</span>
+        </div>
+        <div class="row" style="margin: 0px;">
+            <div class="col-xs-3 thumbnail">
+                <div style="font-size: 14px;font-weight: 700;color: #265a88;padding-top: 5px;border-bottom: 1px solid;text-align: center;">
+                    Bulk Download Shipping Label
+                </div>
+                <br>
+                <button class="btn btn-default center-block" style="background-color:darkgreen;color:#fff;border-width:1px;">Select Excel</button>
+                <p style="text-align: center;color:lightgrey;">(format Order ID, Bill No.)</p>
+                <br><br>
+                <button class="btn btn-default center-block" style="background-color:darkred;color:#fff;border-width:1px;">Bulk Download Shipping Label</button>
+            </div>
+            <div class="col-xs-3 thumbnail">
+                <div style="font-size: 14px;font-weight: 700;color: #265a88;padding-top: 5px;border-bottom: 1px solid;text-align: center;">
+                    Bulk Send To Delivery
+                </div>
+                <br>
+                <button class="btn btn-default center-block" style="background-color:darkgreen;color:#fff;border-width:1px;">Select Excel</button>
+                <p style="text-align: center;color:lightgrey;">(format Order ID, Bill No.)</p>
+                <br><br>
+                <button class="btn btn-default center-block" style="background-color:darkred;color:#fff;border-width:1px;">Bulk Send To Delivery</button>
+            </div>
+        </div>
+    </div>-->
+
+    <div class="container" style="">
+        <div class="col-md-12">
+            <div class="pagination">
+                <a href="#">Prev</a>
+                <a href="search_order">Next</a>
+            </div>
+        </div>
+
+ <!--   <div class="container" style="padding: 0%;margin: 0%;width: 100%;">
+        <div class="col-md-12" style="text-align: center;">
+            <div class="pagination">
+                <a href="#">Prev</a>
+                <a href="#">Next</a>
+            </div>
+        </div>
+        <div class="col-md-6">
+        	<button class="btn btn-default" style="border-width:1px;background-color:#337ab7;color:#fff;">Select all</button>
+        </div>
+    <!--    <div class="col-md-2" style= "text-align:right">
+        	<button style="border-width:1px;background-color:#337ab7;border-radius:5px;color:#fff;padding:2%;">Unassign</button>
+        <div class="col-md-6" style="text-align:right;">
+        	<button class="btn btn-default" style="border-width:1px;background-color:#337ab7;color:#fff;">Mark All Collected</button>
+            <button class="btn btn-default" style="border-width:1px;background-color:#337ab7;color:#fff;">Mark All Uncollected</button>
+            <button class="btn btn-default" style="border-width:1px;background-color:#337ab7;color:#fff;">Download Excel</button>
+        </div>-->
+    </div>
+    <br>
+<!--    <div class="container">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-12">
+                    <br><br>
+                    <form>
+                        <table>
+                            <thead>
+                                <tr>
+                                  <td class="col-md-1" style="border:2px lightgrey solid;padding:8px;text-align: center;">
+                                  </td>
+                                  <td class="col-md-1" style=" border:2px lightgrey solid;padding:8px;text-align: center;">Order ID</td>
+                                  <td class="col-md-1" style=" border:2px lightgrey solid;padding:8px;text-align: center;">Vendor ID</td>
+                                  <td class="col-md-1" style=" border:2px lightgrey solid;padding:8px;text-align: center;">FE Name</td>
+                                  <td class="col-md-1" style=" border:2px lightgrey solid;padding:8px;text-align: center;">Order Date</td>
+                                  <td class="col-md-1" style=" border:2px lightgrey solid;padding:8px;text-align: center;">Order OFD Date</td>
+                                  <td class="col-md-1" style=" border:2px lightgrey solid;padding:8px;text-align: center;">Order Delivery Date</td>
+                                  <td class="col-md-1" style=" border:2px lightgrey solid;padding:8px;text-align: center;">Bill Number</td>
+                                  <td class="col-md-1" style=" border:2px lightgrey solid;padding:8px;text-align: center;">Payable Amount</td>
+                                  <td class="col-md-1" style=" border:2px lightgrey solid;padding:8px;text-align: center;">Order Status</td>
+                                  <td class="col-md-1" style=" border:2px lightgrey solid;padding:8px;text-align: center;">Collection Status</td>
+                                  <td class="col-md-1" style=" border:2px lightgrey solid;padding:8px;text-align: center;">Actions</td>
+                                </tr>
+                            </thead>
+                            <tbody style="font-size:12px;">
+                                <tr>
+                                    <td class="col-md-1" style=" border:2px lightgrey solid;padding:8px;text-align: center;">
+                                        <input type="checkbox" name="">
+                                    </td>
+                                    <td class="col-md-1" style=" border:2px lightgrey solid;padding:8px;text-align: center;">    <p>PO91183054672</p>
+                                    </td>
+                                    <td class="col-md-1" style=" border:2px lightgrey solid;padding:8px;text-align: center;">
+                                        <p>9T9_DEL_51</p>
+                                    </td>
+                                    <td class="col-md-1" style=" border:2px lightgrey solid;padding:8px;text-align: center;">
+                                        <p>Anil Kumar Rana</p>
+                                    </td>
+                                    <td class="col-md-1" style=" border:2px lightgrey solid;padding:8px;text-align: center;">
+                                        <p>2018-03-31</p>
+                                    </td>
+                                    <td class="col-md-1" style=" border:2px lightgrey solid;padding:8px;text-align: center;">
+                                        <p>2018-04-01</p>
+                                    </td>
+                                    <td class="col-md-1" style=" border:2px lightgrey solid;padding:8px;text-align: center;">
+                                        <p>2018-04-01</p>
+                                    </td>
+                                    <td class="col-md-1" style=" border:2px lightgrey solid;padding:8px;text-align: center;">
+                                        <p>57691</p>
+                                    </td>
+                                    <td class="col-md-1" style=" border:2px lightgrey solid;padding:8px;text-align: center;">
+                                        <p>430.72</p>
+                                    </td>
+                                    <td class="col-md-1" style=" border:2px lightgrey solid;padding:8px;text-align: center;">
+                                        <p>Delivered</p>
+                                    </td>
+                                    <td class="col-md-1" style=" border:2px lightgrey solid;padding:8px;text-align: center;">
+                                        <p>Not Collected</p>
+                                    </td>
+                                    <td class="col-md-1" style=" border:2px lightgrey solid;padding:8px;text-align: center;">
+                                        <select>
+                                            <option>--</option>
+                                            <option>Collected</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                 <tr>
+                                    <td class="col-md-1" style=" border:2px lightgrey solid;padding:8px;text-align: center;">
+                                        <input type="checkbox" name="">
+                                    </td>
+                                    <td class="col-md-1" style=" border:2px lightgrey solid;padding:8px;text-align: center;">    <p>PO91183054672</p>
+                                    </td>
+                                    <td class="col-md-1" style=" border:2px lightgrey solid;padding:8px;text-align: center;">
+                                        <p>9T9_DEL_51</p>
+                                    </td>
+                                    <td class="col-md-1" style=" border:2px lightgrey solid;padding:8px;text-align: center;">
+                                        <p>Anil Kumar Rana</p>
+                                    </td>
+                                    <td class="col-md-1" style=" border:2px lightgrey solid;padding:8px;text-align: center;">
+                                        <p>2018-03-31</p>
+                                    </td>
+                                    <td class="col-md-1" style=" border:2px lightgrey solid;padding:8px;text-align: center;">
+                                        <p>2018-04-01</p>
+                                    </td>
+                                    <td class="col-md-1" style=" border:2px lightgrey solid;padding:8px;text-align: center;">
+                                        <p>2018-04-01</p>
+                                    </td>
+                                    <td class="col-md-1" style=" border:2px lightgrey solid;padding:8px;text-align: center;">
+                                        <p>57691</p>
+                                    </td>
+                                    <td class="col-md-1" style=" border:2px lightgrey solid;padding:8px;text-align: center;">
+                                        <p>430.72</p>
+                                    </td>
+                                    <td class="col-md-1" style=" border:2px lightgrey solid;padding:8px;text-align: center;">
+                                        <p>Delivered</p>
+                                    </td>
+                                    <td class="col-md-1" style=" border:2px lightgrey solid;padding:8px;text-align: center;">
+                                        <p>Not Collected</p>
+                                    </td>
+                                    <td class="col-md-1" style=" border:2px lightgrey solid;padding:8px;text-align: center;">
+                                        <select>
+                                            <option>--</option>
+                                            <option>Collected</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                 <tr>
+                                    <td class="col-md-1" style=" border:2px lightgrey solid;padding:8px;text-align: center;">
+                                        <input type="checkbox" name="">
+                                    </td>
+                                    <td class="col-md-1" style=" border:2px lightgrey solid;padding:8px;text-align: center;">    <p>PO91183054672</p>
+                                    </td>
+                                    <td class="col-md-1" style=" border:2px lightgrey solid;padding:8px;text-align: center;">
+                                        <p>9T9_DEL_51</p>
+                                    </td>
+                                    <td class="col-md-1" style=" border:2px lightgrey solid;padding:8px;text-align: center;">
+                                        <p>Anil Kumar Rana</p>
+                                    </td>
+                                    <td class="col-md-1" style=" border:2px lightgrey solid;padding:8px;text-align: center;">
+                                        <p>2018-03-31</p>
+                                    </td>
+                                    <td class="col-md-1" style=" border:2px lightgrey solid;padding:8px;text-align: center;">
+                                        <p>2018-04-01</p>
+                                    </td>
+                                    <td class="col-md-1" style=" border:2px lightgrey solid;padding:8px;text-align: center;">
+                                        <p>2018-04-01</p>
+                                    </td>
+                                    <td class="col-md-1" style=" border:2px lightgrey solid;padding:8px;text-align: center;">
+                                        <p>57691</p>
+                                    </td>
+                                    <td class="col-md-1" style=" border:2px lightgrey solid;padding:8px;text-align: center;">
+                                        <p>430.72</p>
+                                    </td>
+                                    <td class="col-md-1" style=" border:2px lightgrey solid;padding:8px;text-align: center;">
+                                        <p>Delivered</p>
+                                    </td>
+                                    <td class="col-md-1" style=" border:2px lightgrey solid;padding:8px;text-align: center;">
+                                        <p>Not Collected</p>
+                                    </td>
+                                    <td class="col-md-1" style=" border:2px lightgrey solid;padding:8px;text-align: center;">
+                                        <select>
+                                            <option>--</option>
+                                            <option>Collected</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </form>
+                    <br>
+                </div>
+            </div>
+            <br>
+
+        </div>
+
+    </div>-->
+    <br>
+    <div class="container" id="list" style="margin: 0%;width:100%;">
+    	<!--<div class="row" style="margin-top: 20px;">
+            <div class="col-md-4" style="padding-right: 0%;padding-left: 12%;">
+            	<div class="col-md-12 thumbnail">
+            		<div style="font-weight: bold;">Payment Details</div><br>
+                    <p>Cart MRP: <span> Rs.866.00</span></p>
+                    <p>Current MRP: <span> Rs.866.00</span></p>
+                    <p>Discounted MRP: <span> Rs.866.00</span></p>
+                    <p>Coupon Discount: <span> Rs.866.00</span></p>
+                    <p>MOS Cash Used: <span> Rs.866.00</span></p>
+                    <p>Shipping Charges: <span> Rs.866.00</span></p>
+                    <p>Amount Payable: <span> Rs.866.00</span></p>
+                    <p>Order Time: <span> 2018-03-31 <span>22:30:25</span></span></p>
+                    <p>Mode:<span>COD</span></p>
+            	</div>
+            	<div class="col-md-12 thumbnail">
+            		<div style="font-weight: bold;">User Details</div><br>
+                    <p>Patient Name: <span>ASD</span></p>
+                    <p>Email: <span>asd@gmail.com</span></p>
+            	</div>
+            	<div class="col-md-12 thumbnail">
+            		<div style="font-weight: bold;">Delivery Address:</div><br>
+                    <p>ASD</p>
+                    <p>address</p>
+                    <p>Ph.9818552050</p>
+                    <p>IN</p>
+            	</div>
+                <div class="col-md-12 thumbnail">
+                    <div class="col-md-6">
+                        <p style="font-weight: bold;">Prescription</p>
+                        <p>huhu</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p style="font-weight: bold;">Upload Date</p>
+                        <p>bhbbhb</p>
+                    </div>
+                    <div class="col-md-12">
+                        <p style="color:red">NO Prescription w</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-7 thumbnail">
+                <div class="col-md-5">
+                    <a style="text-decoration:none;cursor:pointer;color:grey;">Group ID: <span>PO891861225516</span></a><br>
+                    <a style="text-decoration:none;cursor:pointer;color:grey;">Order ID: <span>PO891861225516</span></a><br><br>
+                    <p>Order Type: <span>MOS COD</span></p>
+                    <p>Store: <span>Sharma Drugs</span></p>
+                </div>
+                <div class="col-md-4">
+                    <p>Order Time: <span>31 Mar,2018 <span>22:30:25</span></span></p>
+
+                    <p>Time since: <span>1 day 22 hours ago</span></p>
+                </div>
+                <div class="col-md-3">
+                    <p>Stock check before packaging</p>
+                </div>
+            </div>
+            <div class="col-md-7 thumbnail">
+                <button>View History</button>
+                <button>Coupon</button>
+                <br><br>
+                <form>
+                        <table>
+                            <thead>
+                                <tr>
+                                  <td class="col-md-3" style=" border:2px lightgrey solid;padding:8px;text-align: center;">Product Name</td>
+                                  <td class="col-md-3" style=" border:2px lightgrey solid;padding:8px;text-align: center;">Drug/Pack Form</td>
+                                  <td class="col-md-1" style=" border:2px lightgrey solid;padding:8px;text-align: center;">Quantity</td>
+                                  <td class="col-md-1" style=" border:2px lightgrey solid;padding:8px;text-align: center;">Price</td>
+                                  <td class="col-md-4" style=" border:2px lightgrey solid;padding:8px;text-align: center;">Therapeutic Classes</td>
+                                </tr>
+                            </thead>
+                            <tbody style="background-color: rgba(233, 255, 226,0.6);font-size:12px;">
+                                <tr>
+                                    <td class="col-md-2" style=" border:2px lightgrey solid;padding:8px;text-align: center;">Ecosprin-AV 75 Capsule <br><span>Manufacturer : <span>USV Ltd</span></span></td>
+                                    <td class="col-md-3" style=" border:2px lightgrey solid;padding:8px;text-align: center;">
+                                        <p>Drug Form: <span> Capsule</span></p>
+                                        <p>Schedule: <span> H</span></p>
+                                        <p>Pack Form: <span> Strip</span></p>
+                                        <p>Label: <span>Strip Of 15 Capsules</span></p>
+                                    </td>
+                                    <td class="col-md-1" style=" border:2px lightgrey solid;padding:8px;text-align: center;">
+                                        <p>1 Packet</p>
+                                    </td>
+                                    <td class="col-md-2" style=" border:2px lightgrey solid;padding:8px;text-align: center;">
+                                        <p>Rs. <span>440.00</span></p>
+                                    </td>
+                                    <td class="col-md-4" style=" border:2px lightgrey solid;padding:8px;text-align: center;">
+                                        <p>awacs: <span>CARDIOVASCULAR SYSTEM/CARDIAC/STATINS COMBINED WITH ANTI PLATELET DRUGS</span</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-2" style=" border:2px lightgrey solid;padding:8px;text-align: center;">Ecosprin-AV 75 Capsule <br><span>Manufacturer : <span>USV Ltd</span></span></td>
+                                    <td class="col-md-3" style=" border:2px lightgrey solid;padding:8px;text-align: center;">
+                                        <p>Drug Form: <span> Capsule</span></p>
+                                        <p>Schedule: <span> H</span></p>
+                                        <p>Pack Form: <span> Strip</span></p>
+                                        <p>Label: <span>Strip Of 15 Capsules</span></p>
+                                    </td>
+                                    <td class="col-md-1" style=" border:2px lightgrey solid;padding:8px;text-align: center;">
+                                        <p>1 Packet</p>
+                                    </td>
+                                    <td class="col-md-2" style=" border:2px lightgrey solid;padding:8px;text-align: center;">
+                                        <p>Rs. <span>440.00</span></p>
+                                    </td>
+                                    <td class="col-md-4" style=" border:2px lightgrey solid;padding:8px;text-align: center;">
+                                        <p>awacs: <span>CARDIOVASCULAR SYSTEM/CARDIAC/STATINS COMBINED WITH ANTI PLATELET DRUGS</span</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </form>
+                    <br>
+            </div>
+    	</div>-->
+    </div>
+		<div id="modal-lists">
+
+		</div>
+</body>
+</html>

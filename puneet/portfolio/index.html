@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Home</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style>
+.parallax { 
+    /* The image used */
+   	background-image: url('');
+
+    /* Full height */
+    height: 100%; 
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: hidden;
+}
+a
+{
+	color: white;
+}
+.main
+{
+	width: 100%;
+	background-color: #fff;
+	height: 100%;
+	
+}
+.overlay {
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  right: 0;
+  background-color: #fff;
+  overflow: hidden;
+  width: 100%;
+  height:0;
+  transition: .5s ease;
+}
+.thumbnail:hover .overlay {
+  bottom: 0;
+  height: 100%;
+}
+.text
+{
+  color: #fff;
+  font-size: 20px;
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  text-align: center;
+  line-height: 1.6;
+}
+.thumbnail
+{
+	width: 80%;
+	position: relative;
+	height: 60%;
+	/*background-color: #008CBA;*/
+	text-align: center;
+	padding: 0%;
+}
+#detail
+{
+	background-color: #008CBA;
+	height: 100%;
+}
+.desc
+{
+	padding: 1.5%;
+	text-align: left;
+	padding-left: 5%;
+}
+</style>    	
+</head>
+<body>
+	<div j23ZZ5iv class="header">
+		<nav class="navbar">
+		  <div class="container-fluid">
+		    <div class="navbar-header">
+		      <a class="navbar-brand" href="#">Brand</a>
+		    </div>
+		    <ul class="nav navbar-nav navbar-right">
+		      <li class="active"><a href="#">Home</a></li>
+		      <li><a href="#">Page 1</a></li>
+		      <li><a href="#">Page 2</a></li>
+		      <li><a href="#">Page 3</a></li>
+		    </ul>
+		  </div>
+		</nav>
+		<div id="particles-js"></div>
+		<div class="container-fluid" style="text-align: center;">
+			<div class="gradient-border" id="box">
+				<img src="http://thebottleboys.com/wp-content/uploads/2014/08/bottleboys_philipp_270x270-270x270.jpg">
+			</div>
+		</div>
+	    <div class="content caption">
+			<p class="line-1 anim-typewriter">I'M PUNEET MEENA</p>
+			<p class="content1">Front End Developer | Back End Developer | Freelancer | Web Enthusiast</p>
+		</div>	
+	</div>		
+
+	<div class="container-fluid" style="background-color: #fff;height: 100%;align-content: center;padding:0px;">
+		<br><br>
+		<div class="main" style="margin-top: 10%;">
+			<div class="thumbnail center-block">
+				<div class="col-md-3" id="detail">
+					<h3 class="text">PERSONAL DETAILS</h3>
+				</div>
+				<div class="col-md-9">
+					
+				</div>			
+			</div>
+		</div>
+		<div class="main">
+			<div class="thumbnail center-block">
+				<div class="col-md-3" id="detail">
+					<h3 class="text">ACADEMIC DETAILS</h3>
+				</div>
+				<div class="col-md-9">
+					
+				</div>
+			</div>
+		</div>
+		<div class="main">
+			<div class="thumbnail center-block">
+				<div class="col-md-3" id="detail">
+					<h3 class="text">EXPERIENCE DETAILS</h3>
+				</div>
+				<div class="col-md-9">
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+	<script type="text/javascript" src="particles.js"></script>
+	<script type="text/javascript" src="app.js"></script>
+</html>

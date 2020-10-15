@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="shortcut icon" href="img/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="css/page3.css">
+    <link rel="stylesheet" type="text/css" href="css/chatbox.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/jquery.als-1.7.js"></script>
+    <script type="text/javascript" src="js/page3.js"></script>
+    <title>DCJ</title>
+    <style>
+
+    body {
+			font-family: 'Open Sans', sans-serif;
+		}
+
+    .affix {
+        top: 0;
+        width: 100%;
+        z-index: .9999 !important;
+      }
+    .form-control:focus
+      {
+        box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.02);
+      }
+      .text
+      {
+        border-top-width: 0px;
+        border-right-width: 0px;
+        border-left-width:0px;
+        border-color: #7b97e2f0;
+        background-color: #0000000f;
+        border-radius: 0px;
+        color: #fff;
+      }
+      .btn-default
+      {
+        color: #d2e3fd;
+        background-color: #4a80ceab;
+        border-color: #ccc0;
+      }
+      .btn-default:hover
+      {
+        background-color: #4a80ceab;
+        color: black;
+      }
+      .col-sm-3
+      {
+        height: 30%;
+      }
+
+      .search-form ul {
+        display: none;
+        position: absolute;
+        background-color: #fff;
+        z-index: 1000;
+        top: 34px;
+        list-style-type: none;
+        width: inherit;
+        border-radius: 0px 0px 2px 2px;
+        box-shadow:2px 3px 5px -1px rgba(0, 0, 0, .5);
+        padding: 0px;
+      }
+
+      .search-form ul li a{
+        text-decoration: none;
+        color: black;
+        cursor: default;
+      }
+
+      .search-form ul li {
+        padding: 5px 10px;
+      }
+
+      .search-form ul li:hover {
+        background-color: #f1f3f6;
+      }
+
+      .select {
+        background-color: #f1f3f6;
+      }
+      body
+      {
+        color: #01134a;
+      }
+      .logo
+      {
+        width: 180px;
+      }
+
+      #company_name a:hover
+      {
+        text-decoration: none;
+      }
+
+      #save-txt {
+        color: black;
+        margin-left: 5px;
+        transform: scale(0.6);
+        animation: save 0.3s infinite alternate;
+      }
+
+      @keyframes save {
+        to{
+          transform: scale(1.0);
+        }
+      }
+
+      .als-container {
+    position: relative;
+    width: 100%;
+    margin: 0px auto;
+    z-index: 0;
+  }
+  .als-viewport {
+      position: relative;
+      overflow: hidden !important;
+  }
+  .als-wrapper {
+      position: relative;
+      list-style: none;
+      overflow: hidden !important;
+  }
+  .als-item {
+      position: relative;
+      display: block;
+      text-align: center;
+      cursor: pointer;
+  }
+
+  #mydropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    width: auto;
+    margin-left: 80px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 12px 16px;
+    z-index: 100;
+  }
+
+  #mydropdown:hover #mydropdown-content {
+    display: block;
+  }
+  .navigation-header #mydropdown:hover {
+    height: auto;
+  }
+    </style>
+    <script>
+      $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+    </script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+          //Disable full page
+          $('body').bind('cut copy paste', function (e) {
+              e.preventDefault();
+          });
+      });
+    </script>
+  </head>
+  <body>
+    <header style="width: 100%;z-index: 0;">
+      <nav class="navbar navbar-style" style="border-radius: 0; margin-bottom: 0;">
+        <div class="container-fluid">
+          <div class="navbar-header logo" style="padding-left: 0%;">
+            <a href="index.php"><img src="img/mos_logo.png" alt="logo" style="width: 100%;"></a>
+            <button type="button" style="margin: 0;" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+              <i class="fa fa-bars"></i>
+            </button>
+          </div>
+          <div class="collapse navbar-collapse" id="myNavbar">
+            <ul id="collapse-list">
+              <li><a href="index.php" style="font-size: 15px;"><span><i class="fa fa-home"></i></span> <span class="icon-info">Home</span></a></li>
+              <li><a href="#articles" style="font-size: 15px;"><span><i class="fa fa-newspaper-o"></i></span> <span class="icon-info">Articles</span></a></li>
+              <li id="login-li" style="display: none;"><a href="#"  style="font-size: 15px;" data-toggle="modal" data-target="#myModal"><span><i class="fa fa-sign-in"></i></span> <span class="icon-info">Login / Sign Up</span></a></li>
+              <li id="user-li" style="text-align: center; display: none;">
+                <div id="mydropdown">
+                  <a><span>Username</span></a>
+                  <div id="mydropdown-content">
+                    <a href="my_orders" style="color: black; padding: 5px;">My Orders</a>
+                    <a href="php/logout.php" style="color: black; padding: 5px;">Log out</a>
+                  </div>
+                </div>
+              </li>
+              <li><a href="cart" style="font-size: 15px;"><i class="fa fa-shopping-cart"></i><span id="cart_no_of_items" style="visibility: hidden; padding: 1px 3px;position: relative; bottom: 10px; width: 18px; height: 18px; border-radius: 50%; background-color: yellow; color: black; font-size: 12px; font-weight: bold;">0</span></a></li>
+              <li><a href="#" style="font-size: 15px;">Need Help?</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <nav class="navbar navbar-style" id="navbar" data-spy="affix" data-offset-top="80" style="border-radius: 0px;margin-bottom: 0px;z-index: 30;">
+        <div class="container-fluid">
+          <div class="col-md-2 col-xs-4 location">
+            <a href="#" style="color: white;"><i class="fa fa-map-marker"></i> <span>New Delhi</span></a>
+          </div>
+          <div class="col-md-10 col-xs-8" style="padding: 0px;">
+            <form class="search-form" id="search-form" action="/action_page.php">
+              <div class="input-group search-input" style="">
+                <input type="text" id="search-med" autocomplete="off" class="form-control" placeholder="Search Medicines Here..." name="search" style="border-top-width:0px;border-bottom-width:2px;border-right-width:0px;border-left-width:0px;background-color: #76abfb00;border-color:#0a4cb7; color:#cdd2e2; font-family:Verdana, Geneva, sans-serif;border-radius: 0px;">
+                <ul>
+                  <li id="0" class="select" onclick="redirect(0);"><a></a></li>
+                  <li id="1" onclick="redirect(1);"><a></a></li>
+                  <li id="2" onclick="redirect(2);"><a></a></li>
+                  <li id="3" onclick="redirect(3);"><a></a></li>
+                </ul>
+                <div class="input-group-btn">
+                  <button class="btn btn-default" type="submit" style="background-color: #082c699c;border-color: #0a4cb7;color:#cdd2e2;width: 34px;border-radius: 50%;padding-left: 6px;padding-right: 6px;margin-left: 5px;">
+                    <i class="glyphicon glyphicon-search"></i>
+                  </button>
+                    <i class="glyphicon glyphicon-search"></i>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </nav>
+    </header>
+    
+    <!--<div class="col-md-5" style="height: 100%;">
+      <div class="row" style="height: 15%;">
+
+      </div>
+        <img src="http://via.placeholder.com/350x250" style="width: 80%;margin-left: 50px;" /><br>
+        <button type="submit" class="btn btn-default" style="width: 40%; margin-left: 50px; margin-top: 40px; height:10%;background-color: #900000e8; ">BUY NOW</button>
+        <button type="submit" class="btn btn-default" style="width: 39%; margin-left: 4px; margin-top: 40px; height:10%;background-color: #900000e8; ">ADD TO CART</button>
+      </div>-->
+    <div class="" style="background-color: #fff;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-6" style="padding: 2% 1%;">
+            <div class="" style="background-color: #fff;">
+              <div id="img" style="text-align: center; padding: 10px;">
+                <img src="img/coming_soon.jpeg" style="max-width: max-content; max-height: 328px;" alt="">
+              </div>
+              <div class="shopping-btn" style="margin-top: 20px;">
+                <div class="row" style="margin: 0px; padding-bottom: 2%;">
+                  <div class="col-md-6">
+                    <button type="button" id="add-to-cart-btn" class="btn-1" name="button"><span><i class="fa fa-shopping-cart"></i></span> Add to Cart</button>
+                  </div>
+                  <div class="col-md-6">
+                    <button type="button" id="buy-now-btn" class="btn-2" name="button"><span><i class="fa fa-shopping-bag"></i></span> Buy Now</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6" style="padding: 2% 1%; z-index:0;">
+            <div class="" style="background-color: #fff; margin: 0 10px; padding: 10px;">
+              <div id="med_name">
+                <h2 style="font-weight: 700; margin: 0px;">Med Name<span>(category)</span></h2>
+              </div>
+              <div class="">
+                <div id="company_name" style="display: inline-block; padding: 2px 0px;font-size: 18px;">
+                  <a href="#">company_name</a>
+                </div>
+                <div class="" style="display: inline-block; padding: 0px 5px;">
+                  <img src="img/quality_mos.jpeg" alt="" style="max-width: 180px; max-height: 50px; object-fit: scale-down;">
+                </div>
+              </div>
+              <div class="">
+              </div>
+              <div class="">
+                <div id="offer-price" style="padding: 5px 0; display: none;">
+                  <div style="font-size: 28px; font-weight: bold;">&#8377; <span>250</span></div>
+                </div>
+                <div id="price" style="padding: 5px; display: none;">
+                  <div style="font-size: 16px; color: grey; text-decoration: line-through;">&#8377; <span>250</span></div>
+                </div>
+                <div class="" id="save-txt" style="display: none; padding: 5px; font-size: 16px; color: #388e3c; font-weight: 550;">
+                  <div class="">Save <span>0</span>% </div>
+                </div>
+              </div>
+         <!-- <div id="ratings">
+                <div data-toggle="tooltip" title="4.3" data-placement="right" style="display: inline-block; font-size: 1.4em;">
+                  <i class="fa fa-star checked"></i>
+                  <i class="fa fa-star checked"></i>
+                  <i class="fa fa-star checked"></i>
+                  <i class="fa fa-star checked"></i>
+                  <i class="fa fa-star"></i>
+                </div>
+              </div>-->
+          <!--<div id="ratings-based">
+                <span style="font-size: 12px; color: #878787;">Based on 1000 reviews & 2587 ratings</span>
+              </div>-->
+              <div id="item-status">
+                <span style="color: red;">Prescription Required!</span>
+              </div>
+              <div id="quantity">
+                <div style="display: inline-block; background-color: #f0f0f0; margin-top: 10px;">
+                  <button id="quantity-dec" type="button" name="button" style="border: none; width: 45px; padding: 5px 0px;font-size: 20px; font-weight: bold;">-</button>
+                  <span style="padding: 10px;">1</span>
+                  <button id="quantity-inc" type="button" name="button" style="border: none; width: 45px; padding: 5px 0px;font-size: 20px; font-weight: bold;">+</button>
+                </div>
+              </div>
+              <div id="primarily-used">
+                <div class="" style="font-size: 20px; margin-top: 20px; font-weight: bold;">
+                  Primarily Used: <span style="font-weight: normal;">HIV Infection</span>
+                </div>
+              </div><br>
+              <div id="some-details" class="row" style="margin: 20px 20px 0px 0px; padding: 10px; border: 1px solid #f0f0f0;">
+                <div class="col-md-6" style="padding-left: 0;">
+                  <div id="some-details-header-1">
+                 <!--   <span style="font-size: 18px; font-weight: bold;">Highlights</span>-->
+                  </div>
+                  <ul>
+                    <li style="padding-top: 10px; color: #878787;" id="composition">Composition: <span style="color: black;">Abacavir 300 MG</span></li>
+                    <li style="padding-top: 10px; color: #878787;" id="pack-size">Pack-Size: <span style="color: black;">30</span></li>
+                  </ul>
+                </div>
+
+                <div class="col-md-6">
+                  <div id="some-details-header-2">
+                    <span style="font-size: 18px; font-weight: bold;">Services</span>
+                  </div>
+                  <ul style="list-style-type: none;">
+                    <li style="padding-top: 10px; color: #878787;"><span style="color: red; margin-right: 8px;"><i class="fa fa-refresh"></i></span> Non-Return Policy</li>
+                    <li style="padding-top: 10px; color: #878787;"><span style="color: green; margin-right: 8px;"><i class="fa fa-refresh"></i></span> Return Applicable</li>
+                    <li style="padding-top: 10px; color: #878787;"><span style="color: blue; margin-right: 8px;"><i class="fa fa-check-circle"></i></span> Authentic Product</li>
+                    <li style="padding-top: 10px; color: #878787;"><span style="color: #3498DB; margin-right: 8px;">&#8377;</span> Great Savings</li>
+                    <li style="padding-top: 10px; color: #878787;"><span style="color: brown; margin-right: 8px;"><i class="fa fa-truck"></i></span> Home Delievery</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="" style="background-color: #fff; padding: 5px;">
+              <div class="" style="margin: 10px; border-radius: 5px;padding: 8px; box-shadow: 0 2px 2px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08);">
+                <div id="desc-heading" style="font-size: 30px; font-weight: bold;">
+                  Description:
+                </div>
+                <p id="desc" style="padding-top: 10px; text-align: justify; color: #878787;">
+                  This drug is used with other HIV medications to help control HIV infection.
+                  It helps to decrease the amount of HIV in your body so your immune system
+                  can work better. This lowers your chance of getting HIV complications (such
+                  as new infections, cancer) and improves your quality of life. Abacavir belongs
+                  to a class of drugs known as nucleoside reverse transcriptase inhibitors-NRTI.
+                  If you stop using abacavir even for a short time and then restart the drug, you
+                  have an increased chance of developing a very serious (possibly fatal) allergic
+                  reaction. Refill your medication before you run out. Do not stop treatment unless
+                  directed by your doctor. Before restarting abacavir, consult your doctor or
+                  pharmacist, and be sure you have easy access to medical care.
+                </p>
+              </div>
+              <hr>
+              <div class="" id="instructions-for-the-patients" style="display: none;">
+                <div class="" style="margin: 10px; border-radius: 5px;padding: 8px; box-shadow: 0 2px 2px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08);">
+                  <div id="instructions-for-the-patients-heading" style="font-size: 30px; font-weight: bold;">
+                    Instructions for the Patients:
+                  </div>
+                  <p style="color: #878787; text-align: justify;">
+                    To decrease your risk of spreading HIV disease to others, do all of the following:
+                    (1) continue to take all HIV medications exactly as prescribed by your doctor,
+                    (2) always use an effective barrier method (latex or polyurethane condoms/dental dams) during all sexual activity, and (3) do not share personal items (such as needles/syringes, toothbrushes, and razors) that may have contacted blood or other body fluids. Consult your doctor or pharmacist for more details.
+                  </p>
+                </div>
+              </div>
+              <hr id="iftp-hr" style="display: none;">
+              <div class="row" style="margin: 0;">
+                <div class="col-md-4" id="side-effects">
+                  <div class="" style="background-color: #05668c; color: white; margin: 0px; border-radius: 5px;padding: 8px; box-shadow: 0 2px 2px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08); text-align: center;">
+                    <!--<div class="" style="text-align: center;">
+                      <i class="fa fa-warning" style="font-size: 48px; color: royalBlue;"></i>
+                    </div>-->
+                    <div class="" style="font-size: 20px;">
+                      Side Effects
+                    </div>
+                    <p class="">
+                      Headache,Dry mouth, Chest pain,Dyspnea,Numbness, Increased thirst
+                    </p>
+                  </div>
+                </div>
+                <div class="col-md-4" id="storage">
+                  <div class="" style="text-align: center; background-color: #05668c; color: white; margin: 0px; border-radius: 5px;padding: 8px; box-shadow: 0 2px 2px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08);">
+                    <!--<div class="" style="text-align: center;">
+                      <i class="fa fa-plus-square" style="font-size: 48px; color: royalBlue;"></i>
+                    </div>-->
+                    <div class="" style="font-size: 20px;">
+                      Storage
+                    </div>
+                    <p class="">
+                      Store in a cool, dry place away from the reach of children.
+                    </p>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="" id="missed-dosage" style="text-align: center; background-color: #05668c; color: white; margin: 0px; border-radius: 5px;padding: 8px; box-shadow: 0 2px 2px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08);">
+                    <!--<div class="" style="text-align: center;">
+                      <i class="fa fa-plus-square" style="font-size: 48px; color: royalBlue;"></i>
+                    </div>-->
+                    <div class="" style="font-size: 20px;">
+                      Missed Dosage
+                    </div>
+                    <p class="">
+                      Store in a cool, dry place away from the reach of children.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <hr>
+            </div>
+          </div>
+          <div class="col-md-1">
+
+          </div>
+          <div class="col-md-5">
+            <div class="" style="background-color: #fff; padding: 10px;">
+              <h3 style="text-align: center;margin-top: 0px;">Substitute Products</h3>
+              <div id="demo1" class="als-container">
+                <div class="als-viewport">
+                  <ul class="als-wrapper" id="sub-products" style="list-style-type: none; margin: 0; padding: 0; width: 100%; height:268px; overflow-y: auto; overflow-x: hidden;">
+
+                    <!--<li class="als-item" style="background-color: #f1f1f1; border-bottom: 1px solid #DED6D5;">
+                      <div class="row" style="margin: 0px;">
+                        <div class="col-md-10 col-sm-10 col-xs-10">
+                          <div class="" style="text-align: left; font-weight: bold; font-size: 14px;">
+                            ANDROANAGEN TABLET
+                          </div>
+                        </div>
+                        <div class="col-md-2 col-sm-2 col-xs-2">
+                          &#8377; 200
+                        </div>
+                      </div>
+                      <div class="row" style="margin: 2px 0px;">
+                        <div class="col-md-10 col-sm-10 col-xs-10">
+                          <div class="" style="text-align: left; font-weight: lighter; font-size: 12px;">
+                            Curatio Healthcare India Pvt Ltd
+                          </div>
+                        </div>
+                        <div class="col-md-2 col-sm-2 col-xs-2">
+                          <div class="" style="text-decoration: line-through;">
+                            &#8377; 200
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row" style="margin: 2px 0px;">
+                        <div class="col-md-offset-9 col-md-3 col-sm-12 col-xs-12">
+                          <div id="save-txt" style="text-align: right;">
+                            Save 0%
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li class="als-item" style="background-color: #f1f1f1; border-bottom: 1px solid #DED6D5;">
+                      <div class="" style="text-align: center; font-size: 16px;">
+                        Show More
+                      </div>
+                    </li>-->
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr>
+        <!--<div class="row" id="side-effects">
+          <div class="col-md-12">
+            <h4 style="font-weight:normal;">Side Effects:</h4>
+            <p style="color: #878787;">Fatigue, Nausea, Headache, Sleep Problem</p>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-md-12">
+            <div>
+              <h4 style="font-weight: normal;">Storage: </h4>
+              <p id="storage" style="color: #878787;"></p>
+            </div>
+          </div>
+        </div>
+        <hr>-->
+      <!--Modal-->
+      <div class="modal fade" style="margin-top:30px;" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+          <!-- Modal content-->
+          <div class="modal-content" style="background-color: #001223f7;">
+            <div id="loginbox">
+              <div class="modal-header" style="border-bottom-width: 0px; ">
+                <h4 class="modal-title" style="color:#d3ddf1;">Login Here</h4>
+              </div>
+              <div class="modal-body">
+                <form method="post" id="login-form" style="padding: 10px;">
+                  <fieldset>
+                    <div class="form-group">
+                      <input type="text" id="login-email" class="form-control text" name="login-email" value="" placeholder="Email">
+                    </div>
+                    <div class="form-group">
+                      <input type="password" id="login-password" class="form-control text" name="login-password" value="" placeholder="Password" >
+                    </div>
+                    <div class="checkbox">
+                      <label style="color:#d3ddf1;"><input type="checkbox" name="checkbox" name="remember-me" value="1" checked> Remember me</label>
+                    </div>
+                    <button type="submit" id="login-btn" class="btn btn-default" name="button">Log In</button>
+                  </fieldset>
+                </form>
+                <div class="" style="color:white; padding-left: 1.5%;">
+                  Don't have an account? <a style="cursor: pointer;" onclick="$('#loginbox').hide(); $('#signupbox').show()">Sign up Here</a>
+                </div>
+              </div>
+            </div>
+            <div id="signupbox" style="display: none;">
+              <div class="modal-header" style="border-bottom-width: 0px; ">
+                <h4 class="modal-title" style="color:#d3ddf1;">Sign Up Here</h4>
+              </div>
+              <div class="modal-body">
+                <form method="post" id="signup-form" style="padding: 10px;">
+                  <fieldset>
+                    <div class="form-group">
+                      <input type="text" id="signup-firstname" class="form-control text" name="signup-firstname" value="" placeholder="First Name">
+                    </div>
+                    <div class="form-group">
+                      <input type="text" id="signup-lastname" class="form-control text" name="signup-lastname" value="" placeholder="Last Name">
+                    </div>
+                    <div class="form-group">
+                      <input type="text" id="signup-email" class="form-control text" name="signup-email" value="" placeholder="Email">
+                    </div>
+                    <div class="form-group">
+                      <input type="text" id="signup-username" class="form-control text" name="signup-username" value="" placeholder="Username">
+                    </div>
+                    <div class="form-group">
+                      <input type="password" id="signup-password" class="form-control text" name="signup-password" value="" placeholder="Password" >
+                    </div>
+                    <div class="form-group">
+                      <input type="password" id="signup-retype-password" class="form-control text" name="signup-retype-password" value="" placeholder="Re-type Password">
+                    </div>
+                    <button type="submit" id="signup-btn" style="width: auto;" class="btn btn-default" name="button">Sign Up</button>
+                  </fieldset>
+                </form>
+                <div class="" style="color:white; padding-left: 1.5%;">
+                  Already Have an Account? <a style="cursor: pointer;" onclick="$('#signupbox').hide(); $('#loginbox').show()">Log In Here</a>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer" style="border-top-width: 0px;">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+     </div>
+    </div>
+      <div class="col-md-12 social-icons" id="follow">
+        <ul class="social-network social-circle">
+          <li><a target="_blank" href="https://www.facebook.com/" class="icoFacebook" title="Facebook"><i class="fa fa-facebook"></i></a></li>
+          <li><a href="#" class="icoTwitter" title="Twitter"><i class="fa fa-twitter"></i></a></li>
+          <li><a target="_blank" href="https://business.google.com" class="icoGoogle" title="Google +"><i class="fa fa-google-plus"></i></a></li>
+          <li><a target="_blank" href="https://www.linkedin.com/" class="icoLinkedin" title="Linkedin"><i class="fa fa-linkedin"></i></a></li>
+        </ul>
+        <p>copyright&copy Medicines 2018. All rights reserved.</p>
+      </div>
+    <script type="text/javascript">
+    $(document).ready(function () {
+
+    });
+    </script>
+  </body>
+</html>

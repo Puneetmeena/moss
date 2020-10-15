@@ -1,0 +1,53 @@
+.mname
+{
+	/*padding-left: 90px;*/
+	color: black;
+	padding-top: 10px;
+	font-size: 15px;
+	text-align: center;
+}
+
+.mprice
+{
+
+	color: black;
+}
+.mrate
+{
+	color: black;
+
+}
+.mcart
+{
+	width: 100%;
+	margin-top: 10px;
+	height: 36px;
+	border:1px;
+	background-color:#011644fc;
+	color: #fff;
+}
+.checked
+{
+	color: orange;
+}
+.category
+{
+   margin-left: 5px;
+}
+.checkbox
+{
+   font-family: serif;
+   margin-left: 15px;
+}
+.signup
+{
+   margin-right: 85%;
+}
+
+button:focus {
+	outline: none;
+}
+
+a:focus {
+	outline: none !important;
+}

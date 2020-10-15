@@ -1,0 +1,46 @@
+html, body
+{
+  height: 100%;
+  margin: 0%;
+}
+
+.head
+{
+  padding-top: 15px;
+  padding-left: 20px;
+  font-family: sans-serif;
+  
+}
+.leftt
+{
+	text-align: left;
+	padding-left: 5px;
+
+}
+.rightt
+{
+	text-align: right;
+}
+.delete
+{
+    border:1px;
+    padding:5px 15px;
+    height: 40px;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
+    background-color: #fff;
+    color:#2874f0; 
+}
+.buy
+{
+	border: none;
+	width: 100%;
+	padding-top: 6px;
+	padding-bottom: 6px;
+	background-color: #ff6f2b;
+	color: #fff;
+	font-size: 15px;
+	box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
+	font-weight: bold; 
+	text-align: center;
+	margin-bottom: 7px;
+}

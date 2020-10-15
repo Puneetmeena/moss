@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>test</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+      .select {
+        background-color: red;
+      }
+    </style>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $("#test").append("<button id='click'>click me</button>");
+
+        $("#click").click(function(){
+          alert("hola");
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <ul style="display: none;">
+      <li class="select">one</li>
+      <li>two</li>
+      <li>three</li>
+      <li>four</li>
+    </ul>
+    <ul id="collapse-list">
+      <li><a href="index.html" style="font-size: 165x;"><span><i class="fa fa-home"></i></span> <span class="icon-info">Home</span></a></li>
+      <li><a href="#articles" style="font-size: 15px;"><span><i class="fa fa-newspaper-o"></i></span> <span class="icon-info">Articles</span></a></li>
+      <li><a href="#"  style="font-size: 15px;" data-toggle="modal" data-target="#myModal"><span><i class="fa fa-sign-in"></i></span> <span class="icon-info">Login / Sign Up</span></a></li>
+      <li class="dropdown">
+        <a class="dropdown-toggle" id="menu1" data-toggle="dropdown"  style="font-size: 15px;"><span><i class="fa fa-user"></i></span> <span class="icon-info">Himalaya</span><span class="caret"></span></a>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="menu2">
+<li role="presentation"><a role="menuitem" tabindex="-1" href="#">HTML</a></li>
+<li role="presentation"><a role="menuitem" tabindex="-1" href="#">CSS</a></li>
+<li role="presentation"><a role="menuitem" tabindex="-1" href="#">JavaScript</a></li>
+<li role="presentation" class="divider"></li>
+<li role="presentation"><a role="menuitem" tabindex="-1" href="#">About Us</a></li>
+</ul>
+      </li>
+      <li><a href="cart.html" style="font-size: 15px;"><i class="fa fa-shopping-cart"></i><span id="cart_no_of_items" style="visibility: hidden; padding: 1px 3px;position: relative; bottom: 10px; width: 18px; height: 18px; border-radius: 50%; background-color: yellow; color: black; font-size: 12px; font-weight: bold;">0</span></a></li>
+      <li><a href="#" style="font-size: 15px;">Need Help?</a></li>
+    </ul>
+  </body>
+</html>

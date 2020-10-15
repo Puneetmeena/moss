@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>admin</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="js/managing_queue.js"></script>
+		<script type="text/javascript" src="js/jquery.table2excel.js"></script>
+</head>
+<style type="text/css">
+    .thumbnail
+    {
+      margin: 0%;
+      border-radius: 0%;
+
+    }
+    .pagination a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color .3s;
+    border: 1px solid #ddd;
+}
+.rowHeader {
+    padding: 5px;
+    border: 1px solid #CCC;
+    line-height: 25px;
+    background-color: #EEE;
+    border-radius: 5px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+#excel-table, #excel-table tr, #excel-table th, #excel-table td {
+	border: 1px solid #8e898959;
+	border-collapse: collapse;
+}
+
+#excel-table th, td {
+	width: auto;
+}
+
+#excel-table tr {
+	padding: 5px;
+}
+</style>
+<body>
+    <div class="container text-center">
+    	<ul class="pagination">
+					<li><a href="php/redirector.php?pg=cc_queue" id="cc_queue_items">CC Queue <span class="badge">0</span></a></li>
+					<li><a href="php/redirector.php?pg=packaging_queue" id="packaging_queue_items">Packaging Queue <span class="badge">0</span></a></li>
+					<li><a href="shipping_queue" id="shipping_queue_items">Shipping Queue <span class="badge">0</span></a></li>
+					<li class="active"><a href="managing_queue" id="manage_queue_items">Manage Delivery <span class="badge">0</span></a></li>
+					<li><a href="collection_queue" id="collection_queue_items">Collection Queue <span class="badge">0</span></a></li>
+					<li><a href="search_order">Seach Order</a></li>
+					<li><a href="#">Vendor Option</a></li>
+      </ul>
+			<a href="php/admin_logout.php" class="btn-default btn" style="float: right;margin-top: 20px;">Logout</a>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 thumbnail">
+                <div class="col-md-12 ">
+                    <div class="row">
+											<form class="" action="javascript:void(0);" method="post">
+												<div class="col-md-12 ">
+														<div class="row">
+																<div class="col-md-2" style="padding: 0%;">
+																		<p>Order Id/ Group Id</p>
+																		<input type="text" id="filter-order-id" class="form-control" style="width: 100%;" name="id">
+																</div>
+																<div class="col-md-2" style="padding-right: 0%">
+																		<p>Email-ID</p>
+																		<input type="text" id="filter-email" class="form-control" name="email" style="width: 100%;">
+																</div>
+																<div class="col-md-2" style="padding-right: 0%;">
+																		<p>Start Date</p>
+																		<input type="date" id="filter-start-date" class="form-control" style="width: 100%;" name="id">
+																</div>
+																<div class="col-md-2" style="padding-right:0%;">
+																		<p>End Date</p>
+																		<input type="date" id="filter-end-date" class="form-control" style="width: 100%;" name="id">
+																</div>
+																<div class="col-md-2" style="padding-right:0%;">
+																		<select class="selectpicker" id="filter-order-by" style="padding:5px;">
+																				<option value="" disabled selected>Choose Option</option>
+																				<option value="Order Creation Time">Order Creation Time</option>
+																				<option value="Order Queue Time">Order Queue Time</option>
+																		</select>
+																</div>
+																<div class="col-md-2" style="text-align: right;">
+																		<button class="" type="reset">Clear Filter</button><br>
+																</div>
+																<div class="col-md-4" style="text-align: right;">
+																		<button class="btn btn-default" type="button" id="filter-form-btn" style="background-color:#337ab7;color:#fff;border-width:1px;padding:;">Search</button>
+																</div>
+														</div>
+												</div>
+												<div class="col-md-12 ">
+														<div class="row">
+																<div class="col-md-2" style="padding: 0%;">
+																		<p>City</p>
+																		<input type="text" id="filter-city" class="form-control" style="width: 100%;" name="id">
+																</div>
+																<div class="col-md-2" style="padding-right: 0%">
+																		<p>Phone Number</p>
+																		<input type="text" id="filter-phone-number" class="form-control" name="email" style="width: 100%;">
+																</div>
+																<div class="col-md-2" style="padding-right: 0%;">
+																		<p>No. of Result Per Page</p>
+																		<input type="text" id="filter-rpp" class="form-control" style="width: 100%;" name="id">
+																</div>
+																<div class="col-md-6"></div>
+														</div>
+												</div>
+											</form>
+                <!--<div class="col-md-12" style="padding-left:0px;"><br>
+                    <p>Status Selection Filter</p>
+                    <input type="checkbox" name="choose"><span style="">Out for Delivery</span>
+                    <input type="checkbox" name="checkbox"><span style="color:red;">Out For Return and Refund</span>
+                </div>
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-12">
+                            Order By:
+                            <select>
+                                <option>Oldest</option>
+                                <option>Newest</option>
+                            </select>
+                        </div>
+                    </div>
+                    <br>
+                </div>-->
+                <br><br>
+								<div class="col-md-12" style="margin-top: 20px;">
+                    <div class="row">
+                      <div class="col-md-3">
+                        Order Ageing Filter:
+                        <select>
+                            <option>Exact Time</option>
+                            <option>Business Hours</option>
+                        </select>
+                       </div>
+                       <div class="col-md-2">
+                           <!--<input type="checkbox" name=""><span style="font-weight:bold;"> < 2 hours</span>-->
+													 <span style="font-weight:bold;"> < 2 hours</span>
+                       </div>
+                       <div class="col-md-2">
+                           <!--<input type="checkbox" name=""><span style="font-weight:bold;"> 2-8 hours</span>-->
+													 <span style="font-weight:bold;"> 2-8 hours</span>
+                       </div>
+                       <div class="col-md-2">
+                           <!--<input type="checkbox" name=""><span style="font-weight:bold;"> > 8 hours</span>-->
+													 <span style="font-weight:bold;"> > 8 hours</span>
+                       </div>
+                       <div class="col-md-3">
+                           <!--<input type="checkbox" name=""><span style="font-weight:bold;"> > 24 hours</span>-->
+													 <span style="font-weight:bold;"> > 24 hours</span>
+                       </div>
+                    </div>
+                </div>
+								<div class="col-md-12" style="margin-top:1%;">
+                    <div class="row">
+                        <div class="col-md-3" style="padding-right:0px;">
+                            <table>
+                                <tr>
+                                    <td class="col-md-3" style=" border:2px lightgrey solid;padding:8px;text-align: center;">No. Of Orders in Queue</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-md-2" style="padding-left:0px;padding-right:0px;">
+                           <table>
+                                <tr>
+                                    <td class="col-md-2" style=" border:2px lightgrey solid;padding:8px;text-align: center;" id="less-two-hr">11</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-md-2" style="padding-left:0px;padding-right:0px;">
+                           <table>
+                                <tr>
+                                    <td class="col-md-2" style=" border:2px lightgrey solid;padding:8px;text-align: center;" id="bw-two-eight-hr">11</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-md-2" style="padding-left:0px;padding-right:0px;">
+                           <table>
+                                <tr>
+                                    <td class="col-md-2" style=" border:2px lightgrey solid;padding:8px;text-align: center;" id="bw-eight-twenty-four-hr">11</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-md-3" style="padding-left:0px;">
+                           <table>
+                                <tr>
+                                    <td class="col-md-3" style=" border:2px lightgrey solid;padding:8px;text-align: center;" id="more-twenty-four-hr">11</td>
+                                </tr>
+                            </table>
+                       </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div  style="height:50px;"></div>
+
+<!--    <div class="container">
+        <div class="bulk-action mar-T10">
+            <span class="rowHeader">Bulk Actions</span>
+        </div>
+        <div class="row" style="margin: 0px;">
+            <div class="col-xs-3 thumbnail">
+                <div style="font-size: 14px;font-weight: 700;color: #265a88;padding-top: 5px;border-bottom: 1px solid;text-align: center;">
+                    Bulk Download Shipping Label
+                </div>
+                <br>
+                <button class="btn btn-default center-block" style="background-color:darkgreen;color:#fff;border-width:1px;">Select Excel</button>
+                <p style="text-align: center;color:lightgrey;">(format Order ID, Bill No.)</p>
+                <br><br>
+                <button class="btn btn-default center-block" style="background-color:darkred;color:#fff;border-width:1px;">Bulk Download Shipping Label</button>
+            </div>
+            <div class="col-xs-3 thumbnail">
+                <div style="font-size: 14px;font-weight: 700;color: #265a88;padding-top: 5px;border-bottom: 1px solid;text-align: center;">
+                    Bulk Send To Delivery
+                </div>
+                <br>
+                <button class="btn btn-default center-block" style="background-color:darkgreen;color:#fff;border-width:1px;">Select Excel</button>
+                <p style="text-align: center;color:lightgrey;">(format Order ID, Bill No.)</p>
+                <br><br>
+                <button class="btn btn-default center-block" style="background-color:darkred;color:#fff;border-width:1px;">Bulk Send To Delivery</button>
+            </div>
+        </div>
+    </div>-->
+
+    <div class="container" style="">
+        <div class="col-md-12">
+            <div class="pagination">
+                <a href="#">Prev</a>
+                <a href="managing_queue">Next</a>
+            </div>
+        </div>
+
+ <!--   <div class="container" style="padding: 0%;margin: 0%;width: 100%;">
+        <div class="col-md-12" style="text-align: center;">
+            <div class="pagination">
+                <a href="#">Prev</a>
+                <a href="#">Next</a>
+            </div>
+        </div>-->
+        <div class="col-md-8">
+        	<button class="btn btn-default" style="border-width:1px;background-color:#337ab7;color:#fff;">Select all</button>
+        </div>
+    <!--    <div class="col-md-2" style= "text-align:right">
+        	<button style="border-width:1px;background-color:#337ab7;border-radius:5px;color:#fff;padding:2%;">Unassign</button>-->
+        <div class="col-md-4" style="text-align:right;">
+        	<button class="btn btn-default" data-toggle="modal" data-target="#myModal1" style="border-width:1px;background-color:#337ab7;color:#fff;">Download Excel</button>
+        </div>
+    </div>
+    <br>
+    <div class="container">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-12">
+                    <br><br>
+                    <form>
+                        <table>
+                            <thead>
+                                <tr>
+                                  <td class="col-md-2" style=" border:2px lightgrey solid;padding:8px;text-align: center;">Order Details</td>
+                                  <td class="col-md-1" style=" border:2px lightgrey solid;padding:8px;text-align: center;">Total MRP Amount</td>
+                                  <td class="col-md-1" style=" border:2px lightgrey solid;padding:8px;text-align: center;">Discounted MRP Amount</td>
+                                  <td class="col-md-1" style=" border:2px lightgrey solid;padding:8px;text-align: center;">Coupon Discount</td>
+                                  <td class="col-md-1" style=" border:2px lightgrey solid;padding:8px;text-align: center;">MOS Cash Used</td>
+                                  <td class="col-md-1" style=" border:2px lightgrey solid;padding:8px;text-align: center;">Shipping Charges</td>
+                                  <td class="col-md-1" style=" border:2px lightgrey solid;padding:8px;text-align: center;">Payable Amount</td>
+                                  <td class="col-md-1" style=" border:2px lightgrey solid;padding:8px;text-align: center;">Billed Amount</td>
+                                  <td class="col-md-1" style=" border:2px lightgrey solid;padding:8px;text-align: center;">Collected Amount</td>
+                                  <td class="col-md-1" style=" border:2px lightgrey solid;padding:8px;text-align: center;"></td>
+                                  <td class="col-md-1" style=" border:2px lightgrey solid;padding:8px;text-align: center;">Status</td>
+                                </tr>
+                            </thead>
+                            <tbody id="order_lists" style="font-size:12px;">
+                                <!--<tr>
+                                    <td class="col-md-2" style=" border:2px lightgrey solid;padding:8px;text-align: center;">    <p>Group Id: <span>PO91183054672</span></p>
+                                        <p>Order Id: <span>PO91183054672</sp1man></p>
+                                        <p>Order Time: <span>2018-04-02, </span><span> 13:59:06</span></p>
+                                        <p>Split Time: <span>N/A</span></p>
+                                        <p>DILIP CHAND Store : <span>9T9_DEL_5</span></p>
+                                        <button class="btn-default btn">Coupon</button>
+                                    </td>
+                                    <td class="col-md-1" style=" border:2px lightgrey solid;padding:8px;text-align: center;">
+                                        <p>Rs. <span>440.00</span></p>
+                                    </td>
+                                    <td class="col-md-1" style=" border:2px lightgrey solid;padding:8px;text-align: center;">
+
+                                    </td>
+                                    <td class="col-md-1" style=" border:2px lightgrey solid;padding:8px;text-align: center;">
+                                        <p>Rs. <span>440.00</span></p>
+                                    </td>
+                                    <td class="col-md-1" style=" border:2px lightgrey solid;padding:8px;text-align: center;">
+                                        <p>Rs. <span>440.00</span></p>
+                                    </td>
+                                    <td class="col-md-1" style=" border:2px lightgrey solid;padding:8px;text-align: center;">
+                                        <p>Rs. <span>440.00</span></p>
+                                    </td>
+                                    <td class="col-md-1" style=" border:2px lightgrey solid;padding:8px;text-align: center;">
+                                        <p>Rs. <span>440.00</span></p>
+                                    </td>
+                                    <td class="col-md-1" style=" border:2px lightgrey solid;padding:8px;text-align: center;">
+                                        <p>Rs. <span>440.00</span></p>
+                                    </td>
+                                    <td class="col-md-1" style=" border:2px lightgrey solid;padding:8px;text-align: center;">
+                                        <p>Rs. <span>440.00</span></p>
+                                    </td>
+                                    <td class="col-md-1" style=" border:2px lightgrey solid;padding:8px;text-align: center;">
+                                        <p>Select</p>
+                                        <input type="checkbox" name="">
+                                    </td>
+                                    <td class="col-md-1" style=" border:2px lightgrey solid;padding:8px;text-align: center;">
+                                        <select>
+                                            <option>--</option>
+                                            <option>Delivered</option>
+                                            <option>Not Delivered</option>
+                                        </select><br><br>
+                                        <p>PH Subscription</p>
+                                    </td>
+                                </tr>-->
+                            </tbody>
+                        </table>
+                    </form>
+                    <br>
+                </div>
+            </div>
+            <br>
+
+        </div>
+
+    </div>
+    <br>
+<!--    <div class="container" style="margin: 0%;width:100%;">
+    	<div class="row">
+            <div class="col-md-4" style="padding-right: 0%;padding-left: 12%;">
+            	<div class="col-md-12 thumbnail">
+            		<div style="font-weight: bold;">Payment Details</div><br>
+                    <p>Cart MRP: <span> Rs.866.00</span></p>
+                    <p>Current MRP: <span> Rs.866.00</span></p>
+                    <p>Discounted MRP: <span> Rs.866.00</span></p>
+                    <p>Coupon Discount: <span> Rs.866.00</span></p>
+                    <p>MOS Cash Used: <span> Rs.866.00</span></p>
+                    <p>Shipping Charges: <span> Rs.866.00</span></p>
+                    <p>Amount Payable: <span> Rs.866.00</span></p>
+                    <p>Order Time: <span> 2018-03-31 <span>22:30:25</span></span></p>
+                    <p>Mode:<span>COD</span></p>
+            	</div>
+            	<div class="col-md-12 thumbnail">
+            		<div style="font-weight: bold;">User Details</div><br>
+                    <p>Patient Name: <span>ASD</span></p>
+                    <p>Email: <span>asd@gmail.com</span></p>
+            	</div>
+            	<div class="col-md-12 thumbnail">
+            		<div style="font-weight: bold;">Delivery Address:</div><br>
+                    <p>ASD</p>
+                    <p>address</p>
+                    <p>Ph.9818552050</p>
+                    <p>IN</p>
+                    <button>Edit Address</button>
+                    <button>Change Address</button>
+            	</div>
+                <div class="col-md-12 thumbnail">
+                    <div class="col-md-6">
+                        <p>Prescription</p>
+                        <p>huhu</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p>Upload Date</p>
+                        <p>bhbbhb</p>
+                        <button>Delete</button>
+                    </div>
+                </div>
+                <div class="col-md-12 thumbnail">
+                    <button style="background-color:#eb9316;color:#fff;border-width:1px;padding:2%;">Print Rx</button><br><br>
+                    <p>Please upload/select your prescription</p>
+                    <button style="background-color:#265a88;border-width:1px;padding:2%;color:#fff;border-radius:5%;">List Prescriptions</button><br><br>
+                    <input type="file" name="presc" value="choose file"><br>
+                    <p style="font-size:1.1em;">Please Enter Your Doctor Name</p>
+                    <input type="text" name="name" style="border-radius:5px;border-width:1px;height:30px;padding:5px;"><br><br>
+                    <p style="font-size:1.1em;">Please Enter Your Patient's Name</p>
+                    <input type="text" name="name" style="border-radius:5px;border-width:1px;height:30px;padding:5px;"><br><br>
+                    <button style="padding:2%;background-color:#265a88;color:#fff;border-width:1px; ">Prescription Required</button>
+                </div>
+            </div>
+            <div class="col-md-8 thumbnail">
+                <div class="col-md-5">
+                    <a style="text-decoration:none;cursor:pointer;color:grey;">Group ID: <span>PO891861225516</span></a><br>
+                    <a style="text-decoration:none;cursor:pointer;color:grey;">Order ID: <span>PO891861225516</span></a><br><br>
+                    <p>Order Type: <span>healthkartplus9.4.3-android::android,Prescription Order</span></p><br>
+                    <div class="col-md-6" style="padding: 0%;margin: 0%;">
+                        <p>Process Order that:</p>
+                    </div>
+                    <div class="col-md-6">
+                        <select class="selectpicker">
+                            <optgroup label="Time">
+                                <option>5 min</option>
+                                <option>6 min</option>
+                                <option>7 min</option>
+                            </optgroup>
+                        </select>
+                        <button style="border-width:1px;background-color:#337ab7;border-radius:5px;color:#fff;">Done</button>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <p>Order Time: <span>31 Mar,2018 <span>22:30:25</span></span></p>
+                    <p>Time since: <span>1 day 22 hours ago</span></p>
+                </div>
+                <div class="col-md-3">
+                    <p>Prescription Order</p>
+                    <label>Select</label>
+                    <input type="checkbox" name="prescription" value="select"><br><br>
+                    <button style="background-color:#eb9316;border-width:1px;color:#fff;padding:5px;border-radius:5px;">Call Customer</button>
+                </div>
+            </div>
+            <div class="col-md-8 thumbnail">
+                <button>View History</button>
+                <button>Cancel Order</button>
+                <button>Add Product</button>
+                <button>User History</button>
+                <button>Coupon</button>
+                <button>Digitization History</button>
+                <button>Digital RX</button>
+                <button>Send Customer Unreachable SMS</button>
+                <button>Send RX Request SMS</button>
+                <button>Avail1msCash</button>
+                <br><br>
+                <div class="col-md-8">
+                  <div class="col-md-12 thumbnail">
+                    <div class="col-md-12">
+                      <div class="col-md-6">
+                        <p>NAME</p>
+                        <input type="text" name="unit" style="width: 15%;"> Strips<br>
+                      </div>
+                      <div class="col-md-4">
+                          <p style="font-size:0.9em;">MRP: <span>Rs 320</span></p>
+                          <p style="font-size: 0.9em;">Offer Price: <span>Rs:570</span></p>
+                      </div>
+                      <div class="col-md-2">
+                          <button style="border-width:1px;background-color:lightgrey;padding:6%;border-radius:10%;">Delete</button>
+                      </div>
+                    </div>
+                    <div class="col-md-12" style="padding:0%;margin:0%;">
+                      <div class="col-md-4">
+                        <p style="font-size:0.9em;padding:0%;margin:0%;">Selling Unit: <span>10</span></p>
+                      </div>
+                      <div class="col-md-4">
+                        <p style="font-size: 0.9em">Drug From: <span>Tablet</span></p>
+                      </div>
+                      <div class="col-md-4">
+                        <p style="font-size:0.9em;">Prescription Required</p>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                        <p style="font-size:0.9em">label: <span>10 TAblets in Strip</span></p>
+                    </div>
+                    <div class="col-md-12">
+                        <p style="font-size:0.9em">Schedule: <span>H</span></p>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="col-md-10" style="margin: 0%;padding: 0%;">
+                        <p style="font-size:0.9em">Therapeutic Classes: <span>N/A</span></p>
+                      </div>
+                      <div class="col-md-2" style="padding: 0%;margin: 0%;">
+                          <button style="background-color:green;color: #fff;border-width:1px;float:right;">OK</button>
+                      </div>
+                    </div>
+                  </div>
+                  <p style="font-size:0.9em;">Ticket #1805786 (Description: waiting-for-digitization) : <span>reopen</span></p>
+                  <p style="font-size:0.9em;">Remarks: </p>
+                  <p style="font-size:0.9em;">upload rx soon : <span style="font-weight:bold;">bhawna.chauhan@1mg.com</span></p>
+                </div>
+                <div class="col-md-4">
+                    <div>Remarks </div>
+                    <textarea></textarea>
+                    <button>Add remarks</button><br><br>
+                    <input type="checkbox" name="pres">Prescription required<br>
+                    <button style="background-color:#265a88;color:#fff;border-width:1px;padding:5px;">Move to next queue</button><br><br>
+                    <p style="font-weight:bold;">Order Choice: </p>
+                    <p>Call me for Details</p>
+                    <p style="font-weight: bold;">Addition al Details:</p>
+                    <p>call me for details</p>
+                    <p style="font-weight:bold;">Duration in days:</p>
+                </div>
+            </div>
+    	</div>
+    </div>-->
+		<div class="modal fade" id="myModal1" role="dialog">
+			<div class="modal-dialog">
+
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">Order description</h4>
+					</div>
+					<div class="modal-body" style="height: 400px; overflow-y: auto;">
+						<table id="excel-table">
+							<thead>
+								<tr>
+									<th>S. No</th>
+									<th>Store Name</th>
+									<th>Group ID</th>
+									<th>Order ID</th>
+									<th>Order Date and Time</th>
+									<th>Address</th>
+									<th>Pincode</th>
+									<th>Bill Number</th>
+									<th>Coupon Discount</th>
+									<th>Final Payable</th>
+									<th>Order Status</th>
+									<th>Delivery partners</th>
+									<th>FE Name</th>
+									<th>FE Number</th>
+									<th>Dispatch Date</th>
+									<th>Dispatch Time</th>
+								</tr>
+							</thead>
+							<tbody>
+								<!--<tr>
+									<td>PO9818524361897</td>
+									<td>PO9818524361897</td>
+									<td>pusk82@gmail.com</td>
+									<td>2018-04-09 20:03:26</td>
+									<td>Bravia D 30mg/20mg Capsule SR</td>
+									<td>117045</td>
+									<td>3165.1</td>
+									<td>2925.8</td>
+									<td>10</td>
+									<td>1 strip</td>
+									<td>0</td>
+									<td></td>
+									<td>2948</td>
+									<td>Siyadevi</td>
+									<td>strip</td>
+									<td>10</td>
+									<td>Dr. Ishwar Bohra</td>
+									<td>8130797559</td>
+									<td>C102 First Floor Back Portion,Hari Nagar Clock Tower,Delhi,Delhi</td>
+									<td>C102 First Floor Back Portion</td>
+									<td>Hari Nagar Clock Tower</td>
+									<td>Delhi</td>
+									<td>110064</td>
+									<td>Delhi</td>
+									<td>IN</td>
+									<td>20PLUS5</td>
+									<td></td>
+									<td>Prescription Order</td>
+									<td> no response  ;  cnfrm later  ;  no ans   ;  cs  will confirm about the order whether to process or not some dis issue  ; </td>
+									<td></td>
+								</tr>-->
+							</tbody>
+						</table>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" id="download-excel-btn" name="button">Download Excel</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+
+			</div>
+		</div>
+</body>
+</html>

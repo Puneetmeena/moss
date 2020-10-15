@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>admin</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src=""></script>
+</head>
+<style type="text/css">
+    .thumbnail
+    {
+      margin: 0%;
+      border-radius: 0%;
+
+    }
+    .pagination a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color .3s;
+    border: 1px solid #ddd;
+}
+
+th, td {
+	width: 50%;
+	padding: 5px;
+}
+
+#order-history, #order-history tr, #order-history th, #order-history td {
+	border: 1px solid #8e898959;
+	border-collapse: collapse;
+}
+
+#order-history tr {
+	padding: 5px;
+}
+
+.address-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.address-list li {
+  background-color: #fff;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
+  padding: 10px;
+}
+
+.radio-btn {
+  cursor: pointer;
+  width: 15px;
+  height: 15px;
+  border: 2px solid #0BC5DD;
+  border-radius: 50%;
+}
+
+.radio-checked {
+  background-color: #0BC5DD;
+}
+
+.overflow-btn {
+  text-align: right;
+  display: inline-block;
+  position: relative;
+  float: right;
+}
+
+.overflow-btn ul {
+  list-style-type: none;
+  background-color: #fff;
+  color: #909090;
+  font-size: 12px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 5px;
+  z-index: 2;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
+}
+
+.overflow-show {
+  display: block;
+}
+
+.overflow-hide {
+  display: none;
+}
+
+.overflow-btn ul li {
+  box-shadow: none;
+  text-align: left;
+  padding: 3px;
+  cursor: pointer;
+}
+
+.overflow-btn ul li:hover {
+  color: blue;
+}
+</style>
+<body style="display:block;">
+    <div class="container text-center">
+    	<ul class="pagination">
+            <li class="active"><a href="#" id="cc_queue_items">CC Queue <span class="badge">0</span></a></li>
+            <li><a href="#">Stock Queue</a></li>
+            <li><a href="javascript:void(0);" id="packaging_queue_items">Packaging Queue <span class="badge">0</span></a></li>
+            <li><a href="#">Shipping Queue</a></li>
+            <li><a href="#">Manage Delivery</a></li>
+            <li><a href="#">Collection Queue</a></li>
+            <li><a href="#">Seach Order</a></li>
+            <li><a href="#">Vendor Option</a></li>
+        </ul>
+         <button class="btn-default btn" style="float: right;margin-top: 20px;">Logout</button>
+    </div>
+    <div class="container" style="padding: 0%;margin: 0%;width: 100%;">
+        <div class="col-md-12" style="text-align: center;">
+            <div class="pagination">
+                <a href="#">Prev</a>
+                <a href="#">Next</a>
+            </div>
+        </div>
+        <div class="col-md-2" style="text-align: right;">
+        	<button style="border-width:1px;background-color:#337ab7;border-radius:5px;color:#fff;padding:2%;">Select all</button>
+        </div>
+        <div class="col-md-6"></div>
+        <div class="col-md-2" style= "text-align:right">
+        	<button style="border-width:1px;background-color:#337ab7;border-radius:5px;color:#fff;padding:2%;">Unassign</button>
+        </div>
+        <div class="col-md-2" style="text-align:right;">
+        	<button style="border-width:1px;background-color:#337ab7;border-radius:5px;color:#fff;padding:2%;">Download Excel</button>
+        </div>
+    </div>
+    <div class="container" style="height: 40px;">
+
+    </div>
+    <div class="container" style="margin: 0%;width:100%;">
+    	<div class="row">
+            <div class="col-md-4" style="padding-right: 0%;padding-left: 12%;">
+            	<div class="col-md-12 thumbnail">
+            		<div style="font-weight: bold;">Payment Details</div><br>
+                    <p id="cart_mrp">Cart MRP: Rs.<span>866.00</span></p>
+                    <p id="current_mrp">Current MRP: Rs.<span>866.00</span></p>
+                    <p id="discounted_mrp">Discounted MRP: Rs.<span>866.00</span></p>
+                    <p>Coupon Discount: Rs.<span>0.00</span></p>
+                    <p>MOS Cash Used: Rs.<span>0.00</span></p>
+                    <p id="shipping_price">Shipping Charges: Rs.<span>866.00</span></p>
+                    <p id="amt_payable">Amount Payable: Rs.<span>866.00</span></p>
+                    <p id="order_time">Order Time: <span> 2018-03-31 22:30:25</span></p>
+                    <p>Mode:<span>COD</span></p>
+            	</div>
+            	<div class="col-md-12 thumbnail">
+            		<div style="font-weight: bold;">User Details</div><br>
+                    <p id="patient_name">Patient Name: <span>ASD</span></p>
+                    <p id="email">Email: <span>asd@gmail.com</span></p>
+            	</div>
+            	<div class="col-md-12 thumbnail">
+            		<div style="font-weight: bold;">Delivery Address:</div><br>
+                    <p id="address_line1"><span>ASD</span>,</p>
+                    <p id="address_line2"><span>address</span>,</p>
+										<p id="city"><span>city</span>,</p>
+										<p><span id="region">region</span> - <span id="postal_code">110027</span></p>
+										<p id="country"><span>country</span></p>
+                    <p id="order_phone">Ph.<span>9818552050</span></p>
+                    <button id="edit-address-btn" data-toggle="modal" data-target="#myModal3">Edit Address</button>
+                    <button id="change-address-btn" data-toggle="modal" data-target="#myModal4">Change Address</button>
+            	</div>
+                <div class="col-md-12 thumbnail">
+                    <!--<div class="col-md-6">
+                        <p>Prescription</p>
+												<div class="" id="prescription_images">
+													<p>huhu</p>
+												</div>
+                    </div>
+                    <div class="col-md-6">
+                        <p>Upload Date</p>
+												<div class="" id="upload_dates">
+													<p>bhbbhb</p>
+												</div>
+												<div class="" id="delete_img_btns">
+													<button>Delete</button>
+												</div>
+                    </div>-->
+										<table id="prescription-details">
+											<tr>
+												<th>Prescription</th>
+												<th>Upload Dates</th>
+											</tr>
+											<!--<tr>
+												<td>
+													<a href="#">1.jg</a>
+												</td>
+												<td>
+													<p>Sat apr 08 2018</p>
+													<button type="button">Delete</button>
+												</td>
+											</tr>-->
+										</table>
+                </div>
+                <div class="col-md-12 thumbnail">
+                    <button style="background-color:#eb9316;color:#fff;border-width:1px;padding:2%;">Print Rx</button><br><br>
+                    <p>Please upload/select your prescription</p>
+                    <button style="background-color:#265a88;border-width:1px;padding:2%;color:#fff;border-radius:5%;">List Prescriptions</button><br><br>
+                    <input type="file" name="presc" value="choose file"><br>
+                    <p style="font-size:1.1em;">Please Enter Your Doctor Name</p>
+                    <input type="text" name="name" style="border-radius:5px;border-width:1px;height:30px;padding:5px;"><br><br>
+                    <p style="font-size:1.1em;">Please Enter Your Patient's Name</p>
+                    <input type="text" name="name" style="border-radius:5px;border-width:1px;height:30px;padding:5px;"><br><br>
+                    <button style="padding:2%;background-color:#265a88;color:#fff;border-width:1px; ">Prescription Required</button>
+                </div>
+            </div>
+            <div class="col-md-8 thumbnail">
+                <div class="col-md-5">
+                    <a style="text-decoration:none;cursor:pointer;color:grey;" id="grp_id">Group ID: <span>PO891861225516</span></a><br>
+                    <a style="text-decoration:none;cursor:pointer;color:grey;" id="order_id">Order ID: <span>PO891861225516</span></a><br><br>
+                    <p>Order Type: <span>MOS COD</span></p><br>
+                    <div class="col-md-6" style="padding: 0%;margin: 0%;">
+                        <p>Process Order that:</p>
+                    </div>
+                    <div class="col-md-6">
+                        <select class="selectpicker">
+                            <optgroup label="Time">
+                                <option>5 min</option>
+                                <option>6 min</option>
+                                <option>7 min</option>
+                            </optgroup>
+                        </select>
+                        <button style="border-width:1px;background-color:#337ab7;border-radius:5px;color:#fff;">Done</button>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <p id="order_time">Order Time: <span></span></p>
+                    <p id="time_since">Time since: <span>1 day 22 hours ago</span></p>
+                </div>
+                <div class="col-md-3">
+                    <p>Prescription Order</p>
+                    <label>Select</label>
+                    <input type="checkbox" name="prescription" id="pres-checkbox" value="select"><br><br>
+                    <button style="background-color:#eb9316;border-width:1px;color:#fff;padding:5px;border-radius:5px;">Call Customer</button>
+                </div>
+            </div>
+            <div class="col-md-8 thumbnail">
+                <button data-toggle="modal" data-target="#myModal1">View History</button>
+                <button>Cancel Order</button>
+                <button data-toggle="modal" data-target="#myModal5">Add Product</button>
+                <button data-toggle="modal" data-target="#myModal2">User History</button>
+                <button>Coupon</button>
+                <button>Digitization History</button>
+                <button>Digital RX</button>
+                <button>Send Customer Unreachable SMS</button>
+                <button>Send RX Request SMS</button>
+                <button>Avail1msCash</button>
+                <br><br>
+                <div class="col-md-8">
+									<div class="" id="medicines-list">
+										<!--<div class="col-md-12 thumbnail">
+	                    <div class="col-md-12">
+	                      <div class="col-md-6">
+	                        <p>NAME</p>
+	                        <input type="text" name="unit" style="width: 15%;"> Strips<br>
+	                      </div>
+	                      <div class="col-md-4">
+	                          <p style="font-size:0.9em;">MRP: <span>Rs 320</span></p>
+	                          <p style="font-size: 0.9em;">Offer Price: <span>Rs:570</span></p>
+	                      </div>
+	                      <div class="col-md-2">
+	                          <button style="border-width:1px;background-color:lightgrey;padding:6%;border-radius:10%;">Delete</button>
+	                      </div>
+	                    </div>
+	                    <div class="col-md-12" style="padding:0%;margin:0%;">
+	                      <div class="col-md-4">
+	                        <p style="font-size:0.9em;padding:0%;margin:0%;">Selling Unit: <span>10</span></p>
+	                      </div>
+	                      <div class="col-md-4">
+	                        <p style="font-size: 0.9em">Drug From: <span>Tablet</span></p>
+	                      </div>
+	                      <div class="col-md-4">
+	                        <p style="font-size:0.9em;">Prescription Required</p>
+	                      </div>
+	                    </div>
+	                    <div class="col-md-12">
+	                        <p style="font-size:0.9em">label: <span>10 TAblets in Strip</span></p>
+	                    </div>
+	                    <div class="col-md-12">
+	                        <p style="font-size:0.9em">Schedule: <span>H</span></p>
+	                    </div>
+	                    <div class="col-md-12">
+	                      <div class="col-md-10" style="margin: 0%;padding: 0%;">
+	                        <p style="font-size:0.9em">Therapeutic Classes: <span>N/A</span></p>
+	                      </div>
+	                      <div class="col-md-2" style="padding: 0%;margin: 0%;">
+	                          <button style="background-color:green;color: #fff;border-width:1px;float:right;">OK</button>
+	                      </div>
+	                    </div>
+	                  </div>-->
+									</div>
+                  <p style="font-size:0.9em;">Ticket #1805786 (Description: waiting-for-digitization) : <span>reopen</span></p>
+                  <p style="font-size:0.9em;">Remarks: </p>
+                  <p style="font-size:0.9em;">upload rx soon : <span style="font-weight:bold;">bhawna.chauhan@1mg.com</span></p>
+                </div>
+                <div class="col-md-4">
+                    <div>Remarks </div>
+                    <textarea></textarea>
+                    <button>Add remarks</button><br><br>
+                    <input type="checkbox" name="pres">Prescription required<br>
+                    <button style="background-color:#265a88;color:#fff;border-width:1px;padding:5px;">Move to next queue</button><br><br>
+                    <p style="font-weight:bold;">Order Choice: </p>
+                    <p>Call me for Details</p>
+                    <p style="font-weight: bold;">Addition al Details:</p>
+                    <p>call me for details</p>
+                    <p style="font-weight:bold;">Duration in days:</p>
+                </div>
+            </div>
+    	</div>
+			<div class="modal fade" id="myModal1" role="dialog">
+		    <div class="modal-dialog">
+
+		      <!-- Modal content-->
+		      <div class="modal-content">
+		        <div class="modal-header">
+		          <button type="button" class="close" data-dismiss="modal">&times;</button>
+		          <h4 class="modal-title">Order History</h4>
+		        </div>
+		        <div class="modal-body" style="height: 400px; overflow-y: auto;">
+							<a style="text-decoration:none;cursor:pointer;color:grey;" id="grp_id">Group ID: <span>PO891861225516</span></a><br>
+							<a style="text-decoration:none;cursor:pointer;color:grey;" id="order_id">Order ID: <span>PO891861225516</span></a><br><br>
+							<table id="order-history">
+								<tr>
+									<th>S.No</th>
+									<th>Actions</th>
+								</tr>
+							</table>
+		        </div>
+		        <div class="modal-footer">
+		          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		        </div>
+		      </div>
+
+		    </div>
+		  </div>
+			<div class="modal fade" id="myModal2" role="dialog">
+		    <div class="modal-dialog">
+
+		      <!-- Modal content-->
+		      <div class="modal-content">
+		        <div class="modal-header">
+		          <button type="button" class="close" data-dismiss="modal">&times;</button>
+		          <h4 class="modal-title">User History</h4>
+		        </div>
+		        <div class="modal-body">
+							<div class="" id="order-placed">
+								<strong>Number of Order Placed: </strong><span></span>
+							</div>
+							<div id="order-delivered">
+								<strong>Number of Order Delivered: </strong><span></span>
+							</div>
+		        </div>
+		        <div class="modal-footer">
+		          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		        </div>
+		      </div>
+
+		    </div>
+		  </div>
+			<div class="modal fade" id="myModal3" role="dialog">
+		    <div class="modal-dialog">
+
+		      <!-- Modal content-->
+		      <div class="modal-content">
+		        <div class="modal-header">
+		          <button type="button" class="close" data-dismiss="modal">&times;</button>
+		          <h4 class="modal-title">Edit Address</h4>
+		        </div>
+		        <div class="modal-body">
+							<form class="" id="edit-change-address" action="javascript:void(0);" method="post">
+								<div class="form-group">
+									<input type="text" id="edit-address_line1" class="form-control" placeholder="Address Line 1 eg.Street address, P.O. box, company name, c/o" name="" value="">
+								</div>
+								<div class="form-group">
+									<input type="text" name="" id="edit-address_line2" class="form-control" placeholder="Address Line 2 eg.Apartment, suite , unit, building, floor, etc." value="">
+								</div>
+								<div class="form-group">
+									<input type="text" id="edit-city" class="form-control" placeholder="City / Town" name="" value="">
+								</div>
+								<div class="form-group">
+									<input type="text" id="edit-region" class="form-control" placeholder="State / Province / Region" name="" value="">
+								</div>
+								<div class="form-group">
+									<input type="text" id="edit-postal_code" class="form-control" placeholder="Zip / Postal Code" name="" value="">
+								</div>
+								<div class="form-group">
+									<input type="text" id="edit-phone" class="form-control" placeholder="10 digit mobile number" name="" value="">
+								</div>
+								<div class="form-group">
+									<select id="edit-country" name="country" class="form-control">
+											<option value="" disabled selected>(please select a country)</option>
+											<option value="Afghanistan">Afghanistan</option>
+											<option value="Albania">Albania</option>
+											<option value="Algeria">Algeria</option>
+											<option value="American Samoa">American Samoa</option>
+											<option value="Andorra">Andorra</option>
+											<option value="Angola">Angola</option>
+											<option value="Anguilla">Anguilla</option>
+											<option value="Antarctica">Antarctica</option>
+											<option value="Antigua and Barbuda">Antigua and Barbuda</option>
+											<option value="Argentina">Argentina</option>
+											<option value="Armenia">Armenia</option>
+											<option value="Aruba">Aruba</option>
+											<option value="Australia">Australia</option>
+											<option value="Austria">Austria</option>
+											<option value="Azerbaijan">Azerbaijan</option>
+											<option value="Bahamas">Bahamas</option>
+											<option value="Bahrain">Bahrain</option>
+											<option value="Bangladesh">Bangladesh</option>
+											<option value="Barbados">Barbados</option>
+											<option value="Belarus">Belarus</option>
+											<option value="Belgium">Belgium</option>
+											<option value="Belize">Belize</option>
+											<option value="Benin">Benin</option>
+											<option value="Bermuda">Bermuda</option>
+											<option value="Bhutan">Bhutan</option>
+											<option value="Bolivia">Bolivia</option>
+											<option value="Bosnia and Herzegowina">Bosnia and Herzegowina</option>
+											<option value="Botswana">Botswana</option>
+											<option value="Bouvet Island">Bouvet Island</option>
+											<option value="Brazil">Brazil</option>
+											<option value="British Indian Ocean Territory">British Indian Ocean Territory</option>
+											<option value="Brunei Darussalam">Brunei Darussalam</option>
+											<option value="Bulgaria">Bulgaria</option>
+											<option value="Burkina Faso">Burkina Faso</option>
+											<option value="Burundi">Burundi</option>
+											<option value="Cambodia">Cambodia</option>
+											<option value="Cameroon">Cameroon</option>
+											<option value="Canada">Canada</option>
+											<option value="Cape Verde">Cape Verde</option>
+											<option value="Cayman Islands">Cayman Islands</option>
+											<option value="Central African Republic">Central African Republic</option>
+											<option value="Chad">Chad</option>
+											<option value="Chile">Chile</option>
+											<option value="China">China</option>
+											<option value="Christmas Island">Christmas Island</option>
+											<option value="Cocos (Keeling) Islands">Cocos (Keeling) Islands</option>
+											<option value="Colombia">Colombia</option>
+											<option value="Comoros">Comoros</option>
+											<option value="Congo">Congo</option>
+											<option value="Congo, the Democratic Republic of the">Congo, the Democratic Republic of the</option>
+											<option value="Cook Islands">Cook Islands</option>
+											<option value="Costa Rica">Costa Rica</option>
+											<option value="Cote d'Ivoire">Cote d'Ivoire</option>
+											<option value="Croatia (Hrvatska)">Croatia (Hrvatska)</option>
+											<option value="Cuba">Cuba</option>
+											<option value="Cyprus">Cyprus</option>
+											<option value="Czech Republic">Czech Republic</option>
+											<option value="Denmark">Denmark</option>
+											<option value="Djibouti">Djibouti</option>
+											<option value="Dominica">Dominica</option>
+											<option value="Dominican Republic">Dominican Republic</option>
+											<option value="East Timor">East Timor</option>
+											<option value="Ecuador">Ecuador</option>
+											<option value="Egypt">Egypt</option>
+											<option value="El Salvador">El Salvador</option>
+											<option value="Equatorial Guinea">Equatorial Guinea</option>
+											<option value="Eritrea">Eritrea</option>
+											<option value="Estonia">Estonia</option>
+											<option value="Ethiopia">Ethiopia</option>
+											<option value="Falkland Islands (Malvinas)">Falkland Islands (Malvinas)</option>
+											<option value="Faroe Islands">Faroe Islands</option>
+											<option value="Fiji">Fiji</option>
+											<option value="Finland">Finland</option>
+											<option value="France">France</option>
+											<option value="France, Metropolitan">France, Metropolitan</option>
+											<option value="French Guiana">French Guiana</option>
+											<option value="French Polynesia">French Polynesia</option>
+											<option value="French Southern Territories">French Southern Territories</option>
+											<option value="Gabon">Gabon</option>
+											<option value="Gambia">Gambia</option>
+											<option value="Georgia">Georgia</option>
+											<option value="Germany">Germany</option>
+											<option value="Ghana">Ghana</option>
+											<option value="Gibraltar">Gibraltar</option>
+											<option value="Greece">Greece</option>
+											<option value="Greenland">Greenland</option>
+											<option value="Grenada">Grenada</option>
+											<option value="Guadeloupe">Guadeloupe</option>
+											<option value="Guam">Guam</option>
+											<option value="Guatemala">Guatemala</option>
+											<option value="Guinea">Guinea</option>
+											<option value="Guinea-Bissau">Guinea-Bissau</option>
+											<option value="Guyana">Guyana</option>
+											<option value="Haiti">Haiti</option>
+											<option value="Heard and Mc Donald Islands">Heard and Mc Donald Islands</option>
+											<option value="Holy See (Vatican City State)">Holy See (Vatican City State)</option>
+											<option value="Honduras">Honduras</option>
+											<option value="Hong Kong">Hong Kong</option>
+											<option value="Hungary">Hungary</option>
+											<option value="Iceland">Iceland</option>
+											<option value="India">India</option>
+											<option value="Indonesia">Indonesia</option>
+											<option value="Iran">Iran (Islamic Republic of)</option>
+											<option value="Iraq">Iraq</option>
+											<option value="Ireland">Ireland</option>
+											<option value="Israel">Israel</option>
+											<option value="Italy">Italy</option>
+											<option value="Jamaica">Jamaica</option>
+											<option value="Japan">Japan</option>
+											<option value="Jordan">Jordan</option>
+											<option value="Kazakhstan">Kazakhstan</option>
+											<option value="Kenya">Kenya</option>
+											<option value="Kiribati">Kiribati</option>
+											<option value="Korea, Democratic People's Republic of">Korea, Democratic People's Republic of</option>
+											<option value="Korea, Republic of">Korea, Republic of</option>
+											<option value="Kuwait">Kuwait</option>
+											<option value="Kyrgyzstan">Kyrgyzstan</option>
+											<option value="Lao People's Democratic Republic">Lao People's Democratic Republic</option>
+											<option value="Latvia">Latvia</option>
+											<option value="Lebanon">Lebanon</option>
+											<option value="Lesotho">Lesotho</option>
+											<option value="Liberia">Liberia</option>
+											<option value="Libyan Arab Jamahiriya">Libyan Arab Jamahiriya</option>
+											<option value="Liechtenstein">Liechtenstein</option>
+											<option value="Lithuania">Lithuania</option>
+											<option value="Luxembourg">Luxembourg</option>
+											<option value="Macau">Macau</option>
+											<option value="Macedonia, The Former Yugoslav Republic of">Macedonia, The Former Yugoslav Republic of</option>
+											<option value="Madagascar">Madagascar</option>
+											<option value="Malawi">Malawi</option>
+											<option value="Malaysia">Malaysia</option>
+											<option value="Maldives">Maldives</option>
+											<option value="Mali">Mali</option>
+											<option value="Malta">Malta</option>
+											<option value="Marshall Islands">Marshall Islands</option>
+											<option value="Martinique">Martinique</option>
+											<option value="Mauritania">Mauritania</option>
+											<option value="Mauritius">Mauritius</option>
+											<option value="Mayotte">Mayotte</option>
+											<option value="Mexico">Mexico</option>
+											<option value="Micronesia, Federated States of">Micronesia, Federated States of</option>
+											<option value="Moldova, Republic of">Moldova, Republic of</option>
+											<option value="Monaco">Monaco</option>
+											<option value="Mongolia">Mongolia</option>
+											<option value="Montserrat">Montserrat</option>
+											<option value="Morocco">Morocco</option>
+											<option value="Mozambique">Mozambique</option>
+											<option value="Myanmar">Myanmar</option>
+											<option value="Namibia">Namibia</option>
+											<option value="Nauru">Nauru</option>
+											<option value="Nepal">Nepal</option>
+											<option value="Netherlands">Netherlands</option>
+											<option value="Netherlands Antilles">Netherlands Antilles</option>
+											<option value="New Caledonia">New Caledonia</option>
+											<option value="New Zealand">New Zealand</option>
+											<option value="Nicaragua">Nicaragua</option>
+											<option value="Niger">Niger</option>
+											<option value="Nigeria">Nigeria</option>
+											<option value="Niue">Niue</option>
+											<option value="Norfolk Island">Norfolk Island</option>
+											<option value="Northern Mariana Islands">Northern Mariana Islands</option>
+											<option value="Norway">Norway</option>
+											<option value="Oman">Oman</option>
+											<option value="Pakistan">Pakistan</option>
+											<option value="Palau">Palau</option>
+											<option value="Panama">Panama</option>
+											<option value="Papua New Guinea">Papua New Guinea</option>
+											<option value="Paraguay">Paraguay</option>
+											<option value="Peru">Peru</option>
+											<option value="Philippines">Philippines</option>
+											<option value="Pitcairn">Pitcairn</option>
+											<option value="Poland">Poland</option>
+											<option value="Portugal">Portugal</option>
+											<option value="Puerto Rico">Puerto Rico</option>
+											<option value="Qatar">Qatar</option>
+											<option value="Reunion">Reunion</option>
+											<option value="Romania">Romania</option>
+											<option value="Russian Federation">Russian Federation</option>
+											<option value="Rwanda">Rwanda</option>
+											<option value="Saint Kitts and Nevis">Saint Kitts and Nevis</option>
+											<option value="Saint LUCIA">Saint LUCIA</option>
+											<option value="Saint Vincent and the Grenadines">Saint Vincent and the Grenadines</option>
+											<option value="Samoa">Samoa</option>
+											<option value="San Marino">San Marino</option>
+											<option value="Sao Tome and Principe">Sao Tome and Principe</option>
+											<option value="Saudi Arabia">Saudi Arabia</option>
+											<option value="Senegal">Senegal</option>
+											<option value="Seychelles">Seychelles</option>
+											<option value="Sierra Leone">Sierra Leone</option>
+											<option value="Singapore">Singapore</option>
+											<option value="Slovakia (Slovak Republic)">Slovakia (Slovak Republic)</option>
+											<option value="Slovenia">Slovenia</option>
+											<option value="Solomon Islands">Solomon Islands</option>
+											<option value="Somalia">Somalia</option>
+											<option value="South Africa">South Africa</option>
+											<option value="South Georgia and the South Sandwich Islands">South Georgia and the South Sandwich Islands</option>
+											<option value="Spain">Spain</option>
+											<option value="Sri Lanka">Sri Lanka</option>
+											<option value="St. Helena">St. Helena</option>
+											<option value="St. Pierre and Miquelon">St. Pierre and Miquelon</option>
+											<option value="Sudan">Sudan</option>
+											<option value="Suriname">Suriname</option>
+											<option value="Svalbard and Jan Mayen Islands">Svalbard and Jan Mayen Islands</option>
+											<option value="Swaziland">Swaziland</option>
+											<option value="Sweden">Sweden</option>
+											<option value="Switzerland">Switzerland</option>
+											<option value="Syrian Arab Republic">Syrian Arab Republic</option>
+											<option value="Taiwan, Province of China">Taiwan, Province of China</option>
+											<option value="Tajikistan">Tajikistan</option>
+											<option value="Tanzania, United Republic of">Tanzania, United Republic of</option>
+											<option value="Thailand">Thailand</option>
+											<option value="Togo">Togo</option>
+											<option value="Tokelau">Tokelau</option>
+											<option value="Tonga">Tonga</option>
+											<option value="Trinidad and Tobago">Trinidad and Tobago</option>
+											<option value="Tunisia">Tunisia</option>
+											<option value="Turkey">Turkey</option>
+											<option value="Turkmenistan">Turkmenistan</option>
+											<option value="Turks and Caicos Islands">Turks and Caicos Islands</option>
+											<option value="Tuvalu">Tuvalu</option>
+											<option value="Uganda">Uganda</option>
+											<option value="Ukraine">Ukraine</option>
+											<option value="United Arab Emirates">United Arab Emirates</option>
+											<option value="United Kingdom">United Kingdom</option>
+											<option value="United States">United States</option>
+											<option value="United States Minor Outlying Islands">United States Minor Outlying Islands</option>
+											<option value="Uruguay">Uruguay</option>
+											<option value="Uzbekistan">Uzbekistan</option>
+											<option value="Vanuatu">Vanuatu</option>
+											<option value="Venezuela">Venezuela</option>
+											<option value="Viet Nam">Viet Nam</option>
+											<option value="Virgin Islands (British)">Virgin Islands (British)</option>
+											<option value="Virgin Islands (U.S.)">Virgin Islands (U.S.)</option>
+											<option value="Wallis and Futuna Islands">Wallis and Futuna Islands</option>
+											<option value="Western Sahara">Western Sahara</option>
+											<option value="Yemen">Yemen</option>
+											<option value="Yugoslavia">Yugoslavia</option>
+											<option value="Zambia">Zambia</option>
+											<option value="Zimbabwe">Zimbabwe</option>
+									</select>
+								</div>
+								<div class="form-group">
+									<button type="submit" class="btn btn-default" name="button">Save</button>
+									<button type="reset" class=" btn btn-default" name="button">Clear</button>
+								</div>
+							</form>
+		        </div>
+		        <div class="modal-footer">
+		          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		        </div>
+		      </div>
+
+		    </div>
+		  </div>
+			<div class="modal fade" id="myModal4" role="dialog">
+		    <div class="modal-dialog">
+
+		      <!-- Modal content-->
+		      <div class="modal-content">
+		        <div class="modal-header">
+		          <button type="button" class="close" data-dismiss="modal">&times;</button>
+		          <h4 class="modal-title">Change History</h4>
+		        </div>
+		        <div class="modal-body">
+							<div class="row">
+								<div class="col-md-12">
+									<ul class="address-list" style="">
+										<li>
+											<div class="row" style="margin: 0;">
+												<div class="col-md-8 col-xs-9" style="padding: 0;">
+													<div class="row" style="margin: 0;">
+														<div class="col-md-1 col-xs-2" style="padding-left: 0;">
+															<div class="radio-btn">
+															</div>
+														</div>
+														<div class="col-md-11 col-xs-10" style="font-size: 12px; padding-left: 0;">
+															<div class="" id="full-name" style="font-weight: bold;">
+																<span>Himalaya</span>
+															</div>
+															<div class="">
+																<span>14/149 1st Floor</span>,
+																<span>Subhash Nagar</span>,
+																<span>New Delhi</span>,
+																<span>Delhi</span>,
+																<span>India</span> -
+																<span>110027</span>
+															</div>
+															<div class="">
+																<span>8368127116</span>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="col-md-4 col-xs-3">
+													<div class="overflow-btn">
+														<img src="img/overflow-menu.svg" alt="">
+														<ul class="overflow-hide">
+															<li>Edit</li>
+															<li>Delete</li>
+														</ul>
+													</div>
+												</div>
+											</div>
+										</li>
+									</ul>
+								</div>
+							</div>
+		        </div>
+		        <div class="modal-footer">
+		          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		        </div>
+		      </div>
+
+		    </div>
+		  </div>
+      <div class="modal fade" id="myModal5" role="dialog">
+        <div class="modal-dialog">
+
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h3 style="text-align: center;font-family: garamond-serif;">Medicine Online Store</h3>
+              <h4 class="modal-title">Add Product</h4>
+            </div>
+            <div class="modal-body" style="height:auto; overflow-y: auto;">
+               <form class="search-form" id="search-form">
+              <div class="input-group search-input">
+                <input type="text" id="search-med" autocomplete="off" class="form-control" placeholder="Search Medicines Here..." name="search" style=" font-family:Verdana, Geneva, sans-serif;border-radius: 0px;">
+                <ul>
+                  <li id="0" class="select" onclick="redirect(0);"><a></a></li>
+                  <li id="1" onclick="redirect(1);"><a></a></li>
+                  <li id="2" onclick="redirect(2);"><a></a></li>
+                  <li id="3" onclick="redirect(3);"><a></a></li>
+                </ul>
+                <div class="input-group-btn">
+                  <button class="btn btn-default" type="submit" style="width: 34px;padding-left: 6px;padding-right: 6px;bottom:28px;">
+                    <i class="glyphicon glyphicon-search"></i>
+                  </button>
+                </div>
+              </div>
+            </form>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+</body>
+</html>

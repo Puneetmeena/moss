@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="index1.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/chatbox.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.js"></script>
+    <title>1mg</title>
+    <style>
+      .affix {
+        top: 0;
+        width: 100%;
+        z-index: .9999 !important;
+      }
+
+      .affix + .container-fluid {
+        padding-top: 70px;
+      }
+      .form-control:focus
+      {
+        box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.02);
+      }
+      .text
+      {
+        border-top-width: 0px;
+        border-right-width: 0px;
+        border-left-width:0px;
+        border-color: #7b97e2f0;
+        background-color: #0000000f;
+        border-radius: 0px;
+        color: #fff;
+      }
+      .btn-default
+      {
+        color: #d2e3fd;
+        background-color: #4a80ceab;
+        border-color: #ccc0;
+      }
+      .btn-default:hover
+      {
+        background-color: #4a80ceab;
+        color: black;
+      }
+    </style>
+  </head>
+  <body>
+    <header style="width: 100%;z-index: 1030; ">
+      <nav class="navbar navbar-style" style="border-radius: 0; margin-bottom: 0;">
+        <div class="container-fluid">
+          <div class="navbar-header logo">
+            <a href="#"><img src="img/logo.jpeg" alt="logo" style="border-radius: 50%;width: 100px;height: 70px;"></a>
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+              <i class="fa fa-bars"></i>
+            </button>
+          </div>
+          <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class=" navbar-left" id="collapse-list">
+              <li class="active"><a class="text" href="med.html">HOME</a></li>
+              <li><a class="text" href="#">ARTICLES</a></li>
+            </ul>
+            <ul id="collapse-list">
+              <li><a href="#" data-toggle="modal" data-target="#myModal">Login / Sign Up</a></li>
+              <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+              <li><a href="#">Need Help?</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <nav class="navbar navbar-style" id="navbar" data-spy="affix" data-offset-top="82" style="border-radius: 0px;margin-bottom: 0px;z-index: 1030;">
+        <div class="container-fluid">
+          <div class="navbar-header location">
+            <a href="#" style="color: white;"><i class="fa fa-map-marker"></i> <span>New Delhi</span></a>
+          </div>
+          <form class="search-form" action="/action_page.php">
+            <div class="input-group search-input" style="left: 80px;">
+              <input type="text" class="form-control" placeholder="Search Medicines Here..." name="search" list="med" style="border-top-width:0px;border-bottom-width:2px;border-right-width:0px;border-left-width:0px;background-color: #76abfb00;border-color:#0a4cb7; color:#cdd2e2; font-family:Verdana, Geneva, sans-serif;border-radius: 0px;">
+               <datalist id="med">
+                <option value="abc"></option>
+                <option value="cde"></option>
+              </datalist>
+              <div class="input-group-btn">
+                <button class="btn btn-default" type="submit" style="background-color: #082c699c;border-color: #0a4cb7;color:#cdd2e2;width: 34px;border-radius: 50%;padding-left: 6px;padding-right: 6px;margin-left: 5px;">
+                  <i class="glyphicon glyphicon-search"></i>
+                </button>
+                  <i class="glyphicon glyphicon-search"></i>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </nav>
+    </header>
+
+  <div class="container" style="margin: 0px;padding:0px;width:100%;">
+    <div class="row" style="width:1364px;">
+      <div id="myCarousel" class="carousel slide col-md-8" data-ride="carousel" style="position: relative;">
+        <!-- Indicators -->
+            <ol class="carousel-indicators" style="background-position: center; opacity:1;" >
+                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                <li data-target="#myCarousel" data-slide-to="1"></li>
+                <li data-target="#myCarousel" data-slide-to="2"></li>
+                <li data-target="#myCarousel" data-slide-to="3"></li>
+            </ol>
+          <div class="carousel-inner img-responsive" style="height: 400px;">
+              <div class="item active">
+                <img src="img/img5.jpeg"  style="width:100%;height: 400px;">
+              </div>
+
+              <div class="item">
+                <img src="img/imgg2.jpeg"  style="width:100%;height: 400px;">
+              </div>
+
+              <div class="item">
+                 <img src="img/imggg3.jpeg"  style="width:100%;height: 400px;">
+              </div>
+              <div class="item">
+                <img src="img/img4.jpeg" style="width: 100%;height: 400px;">
+
+              </div>
+          </div>
+             <a class="left carousel-control" href="#myCarousel" data-slide="prev" style="opacity: 0.9;width: 0px;">
+                <span class="left" style="cursor: pointer;position: absolute;top: 45%;width:auto;padding: 16px;padding-left:10px ; margin-top: -22px;color: white;font-weight: bold;font-size: 18px;transition: 0.6s ease;border-radius: 0 3px 3px 0;left: 15px;">&#10094;</span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#myCarousel" data-slide="next" style="opacity: 0.9;width: 0px;">
+                <span class="right" style="cursor: pointer;position: absolute;top: 45%;width: auto;padding: 16px;  margin-top: -22px;color: white;font-weight: bold;font-size: 18px;transition: 0.6s ease;  border-radius: 3 0px 0px 3;right: 15px;">&#10095;</span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+        <div class="col-md-4" style="top: 15px;">
+          <div class="article-active">
+            Article
+          </div>
+          <ul class="articles-list" style="height:auto;">
+            <li>
+              <div class="row">
+                <div class="col-md-2">
+                  <div style="margin: 10px; background-color: #0b3e52; height: 50px; width: 50px;">
+                    <div style="font-size: 18px; color: white; text-align: center;">
+                      30
+                    </div>
+                    <span style="font-size: 15px; color: white; padding: 0px 13px;">Jan</span>
+                  </div>
+                </div>
+                <div class="col-md-10">
+                  <p style="padding: 10px 10px 0px 10px; font-size: 12px; margin: 0px;">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Nunc quis posuere nibh.
+                  </p>
+                  <span style="font-size: 12px; float: right; padding: 0px 15px;">2 views</span>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="row">
+                <div class="col-md-2">
+                  <div style="margin: 10px; background-color: #0b3e52; height: 50px; width: 50px;">
+                    <div style="font-size: 18px; color: white; text-align: center;">
+                      30
+                    </div>
+                    <span style="font-size: 15px; color: white; padding: 0px 13px;">Jan</span>
+                  </div>
+                </div>
+                <div class="col-md-10">
+                  <p style="padding: 10px 10px 0px 10px; font-size: 12px; margin: 0px;">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Nunc quis posuere nibh.
+                  </p>
+                  <span style="font-size: 12px; float: right; padding: 0px 15px;">2 views</span>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="row">
+                <div class="col-md-2">
+                  <div style="margin: 10px; background-color: #0b3e52; height: 50px; width: 50px;">
+                    <div style="font-size: 18px; color: white; text-align: center;">
+                      30
+                    </div>
+                    <span style="font-size: 15px; color: white; padding: 0px 13px;">Jan</span>
+                  </div>
+                </div>
+                <div class="col-md-10">
+                  <p style="padding: 10px 10px 0px 10px; font-size: 12px; margin: 0px;">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Nunc quis posuere nibh.
+                  </p>
+                  <span style="font-size: 12px; float: right; padding: 0px 15px;">2 views</span>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="row">
+                <div class="col-md-2">
+                  <div style="margin: 10px; background-color: #0b3e52; height: 50px; width: 50px;">
+                    <div style="font-size: 18px; color: white; text-align: center;">
+                      30
+                    </div>
+                    <span style="font-size: 15px; color: white; padding: 0px 13px;">Jan</span>
+                  </div>
+                </div>
+                <div class="col-md-10">
+                  <p style="padding: 10px 10px 0px 10px; font-size: 12px; margin: 0px;">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Nunc quis posuere nibh.
+                  </p>
+                  <span style="font-size: 12px; float: right; padding: 0px 15px;">2 views</span>
+                </div>
+              </div>
+            </li>
+
+            <li class="article-last"><a href="#" style="text-align: center;">(View More)</a></li>
+          </ul>
+      </div>
+    </div>
+  </div>
+    <div class="container" style="height: 100%; margin-left: 40px;">
+      <div class="row">
+        <div class="col-md-12 col-xs-12 col-sm-12">
+          <div style="text-align: center; margin-bottom: 50px;margin-top: 50px;">
+            <h1>Analytics</h1>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-8">
+          <div class="graphs" style="margin-left:120px; width: 100%;height: 400px;">
+            <!--Graphs-->
+            <canvas id="myChart" style="; padding: 10px;"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+     <!--Modal-->
+    <div class="modal fade" style="margin-top:30px;" id="myModal" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content" style="background-color: #042444ba;">
+          <div class="modal-header" style="border-bottom-width: 0px; ">
+            <h4 class="modal-title" style="color:#d3ddf1;">Login Here</h4>
+          </div>
+          <div class="modal-body">
+            <form method="post" style="padding: 10px;">
+              <fieldset>
+                <div class="form-group">
+                  <input type="text" class="form-control text" name="email" value="" placeholder="Email">
+                </div>
+                <div class="form-group">
+                  <input type="password" class="form-control text" name="password" value="" placeholder="Password" >
+                </div>
+                <div class="checkbox">
+                  <label style="color:#d3ddf1;"><input type="checkbox" name="checkbox" value="1" checked> Remember me</label>
+                </div>
+                <button type="submit" class="btn btn-default" name="button">Log In</button>
+              </fieldset>
+            </form>
+          </div>
+          <div class="modal-footer" style="border-top-width: 0px;">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12">
+        <div class="container wrapper" style="width: 100%;">
+          <div class="row">
+            <div class="col-xs-12 child">
+              <div class="carousel slide" id="carousel-gen" data-ride="caraousel">
+                <ol class="carousel-indicators hidden-xs" style="z-index: 1;">
+                  <li data-target="#carousel-gen" data-slide-to="0" class="active"></li>
+                  <li data-target="#carousel-gen" data-slide-to="1"></li>
+                </ol>
+                <div class="carousel-inner hidden-xs" role="listbox">
+                  <div class="item active">
+                    <div class="row">
+                      <div class="col-sm-2">
+                        <a href="#" class="thumbnail">
+                          <img src="img/img5.jpeg" alt="" />
+                           <div class="desc">
+                            <p>this is the</p><br>
+                            <p>this is he</p><br>
+                            <p>thi is he</p><br>
+                           </div>
+                        </a>
+                      </div>
+                      <div class="col-sm-2">
+                        <a href="#" class="thumbnail">
+                          <img src="img/img5.jpeg" alt="" />
+                           <div class="desc">
+                            <p>this is the</p><br>
+                            <p>this is he</p><br>
+                            <p>thi is he</p><br>
+                           </div>
+                        </a>
+                      </div>
+                      <div class="col-sm-2">
+                        <a href="#" class="thumbnail">
+                          <img src="img/img5.jpeg" alt="" />
+                          <div class="desc">
+                            <p>this is the</p><br>
+                            <p>this is he</p><br>
+                            <p>thi is he</p><br>
+                           </div>
+                        </a>
+                      </div>
+                      <div class="col-sm-2">
+                        <a href="#" class="thumbnail">
+                          <img src="img5.jpeg" alt="" />
+                          <div class="desc">
+                            <p>this is the</p><br>
+                            <p>this is he</p><br>
+                            <p>thi is he</p><br>
+                           </div>
+                        </a>
+                      </div>
+                      <div class="col-sm-2">
+                        <a href="#" class="thumbnail">
+                          <img src="img/img5.jpeg" alt="" />
+                          <div class="desc">
+                            <p>this is the</p><br>
+                            <p>this is he</p><br>
+                            <p>thi is he</p><br>
+                           </div>
+                        </a>
+                      </div>
+                      <div class="col-sm-2">
+                        <a href="#" class="thumbnail">
+                          <img src="img/img5.jpeg" alt="" />
+                          <div class="desc">
+                            <p>this is the</p><br>
+                            <p>this is he</p><br>
+                            <p>thi is he</p><br>
+                           </div>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div class="row">
+                      <div class="col-sm-2">
+                        <a href="#" class="thumbnail">
+                          <img src="img/img5.jpeg" alt="" />
+                          <div class="desc">
+                            <p>this is the</p><br>
+                            <p>this is he</p><br>
+                            <p>thi is he</p><br>
+                           </div>
+                        </a>
+                      </div>
+                      <div class="col-sm-2">
+                        <a href="#" class="thumbnail">
+                          <img src="img5.jpeg" alt="" />
+                          <div class="desc">
+                            <p>this is the</p><br>
+                            <p>this is he</p><br>
+                            <p>thi is he</p><br>
+                           </div>
+                        </a>
+                      </div>
+                      <div class="col-sm-2">
+                        <a href="#" class="thumbnail">
+                          <img src="img/img5.jpeg" alt="" />
+                          <div class="desc">
+                            <p>this is the</p><br>
+                            <p>this is he</p><br>
+                            <p>thi is he</p><br>
+                           </div>
+                        </a>
+                      </div>
+                      <div class="col-sm-2">
+                        <a href="#" class="thumbnail">
+                          <img src="img/img5.jpeg" alt="" />
+                          <div class="desc">
+                            <p>this is the</p><br>
+                            <p>this is he</p><br>
+                            <p>thi is he</p><br>
+                           </div>
+                        </a>
+                      </div>
+                      <div class="col-sm-2">
+                        <a href="#" class="thumbnail">
+                          <img src="img/img5.jpeg" alt="" />
+                          <div class="desc">
+                            <p>this is the</p><br>
+                            <p>this is he</p><br>
+                            <p>thi is he</p><br>
+                           </div>
+                        </a>
+                      </div>
+                      <div class="col-sm-2">
+                        <a href="#" class="thumbnail">
+                          <img src="img/img5.jpeg" alt="" />
+                          <div class="desc">
+                            <p>this is the</p><br>
+                            <p>this is he</p><br>
+                            <p>thi is he</p><br>
+                           </div>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <a class="left carousel-control" href="#carousel-gen" data-slide="prev" style="opacity: 0.9;width: 0px;">
+                  <span class="left" style="cursor: pointer;position: absolute;top: 45%;width:auto;padding: 16px;padding-left:10px ; margin-top: -22px;color: white;font-weight: bold;font-size: 18px;transition: 0.6s ease;border-radius: 0 3px 3px 0;left: 5px;">&#10094;</span>
+                  <span class="sr-only">Previous</span>
+                </a>
+                <a class="right carousel-control" href="#carousel-gen" data-slide="next" style="opacity: 0.9;width: 0px;">
+                  <span class="right" style="cursor: pointer;position: absolute;top: 45%;width: auto;padding: 16px;  margin-top: -22px;color: white;font-weight: bold;font-size: 18px;transition: 0.6s ease;  border-radius: 3 0px 0px 3;right: 5px;">&#10095;</span>
+                  <span class="sr-only">Next</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+   <button onclick="topFunction()" id="myBtn" title="Back to top"><span class="glyphicon glyphicon-arrow-up"></span></button>
+    <section id="follow">
+      <div class="col-md-12 social-icons">
+        <ul class="social-network social-circle">
+          <li><a target="_blank" href="https://www.facebook.com/" class="icoFacebook" title="Facebook"><i class="fa fa-facebook"></i></a></li>
+          <li><a href="#" class="icoTwitter" title="Twitter"><i class="fa fa-twitter"></i></a></li>
+          <li><a target="_blank" href="https://business.google.com" class="icoGoogle" title="Google +"><i class="fa fa-google-plus"></i></a></li>
+          <li><a target="_blank" href="https://www.linkedin.com/" class="icoLinkedin" title="Linkedin"><i class="fa fa-linkedin"></i></a></li>
+        </ul>
+        <p>copyright&copy Medicines 2018. All rights reserved.</p>
+      </div>
+    </section>
+    <div class="chatbox chatbox--tray chatbox--empty" style="border-radius: 0px;">
+       <div class="chatbox__title">
+           <h5><a href="#">Chat</a></h5>
+           <button class="chatbox__title__tray">
+             <span></span>
+           </button>
+           <button class="chatbox__title__close">
+             <span>
+                <svg viewBox="0 0 12 12" width="12px" height="12px">
+                    <line stroke="#FFFFFF" x1="11.75" y1="0.25" x2="0.25" y2="11.75"></line>
+                    <line stroke="#FFFFFF" x1="11.75" y1="11.75" x2="0.25" y2="0.25"></line>
+                </svg>
+             </span>
+           </button>
+        </div>
+        <div class="chatbox__body">
+        <div class="chatbox__body__message chatbox__body__message--left">
+            <img src="https://s3.amazonaws.com/uifaces/faces/twitter/brad_frost/128.jpg" alt="Picture">
+            <p>yup</p>
+        </div>
+        <div class="chatbox__body__message chatbox__body__message--right">
+            <img src="https://s3.amazonaws.com/uifaces/faces/twitter/arashmil/128.jpg" alt="Picture">
+            <p>hlo</p>
+        </div>
+        <div class="chatbox__body__message chatbox__body__message--left">
+            <img src="https://s3.amazonaws.com/uifaces/faces/twitter/brad_frost/128.jpg" alt="Picture">
+            <p>hey</p>
+        </div>
+        <div class="chatbox__body__message chatbox__body__message--right">
+            <img src="https://s3.amazonaws.com/uifaces/faces/twitter/arashmil/128.jpg" alt="Picture">
+            <p>bye</p>
+        </div>
+        <div class="chatbox__body__message chatbox__body__message--right">
+            <img src="https://s3.amazonaws.com/uifaces/faces/twitter/arashmil/128.jpg" alt="Picture">
+            <p>tata</p>
+        </div>
+    </div>
+
+    <textarea class="chatbox__message" placeholder="Write Here.."></textarea>
+</div>
+
+<script type="text/javascript">
+   window.onscroll=function() {scrollFunction()};
+
+  function scrollFunction()
+  {
+    if (document.body.scrollTop>20 || document.documentElement.scrollTop>20)
+    {
+      document.getElementById("myBtn").style.display = "block";
+    }
+    else
+    {
+      document.getElementById("myBtn").style.display = "none";
+    }
+  }
+  function topFunction()
+  {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+  };
+
+ /* window.onscroll = function() {myFunction()};
+
+var navbar = document.getElementById("navbar");
+var sticky = navbar.offsetTop;
+
+function myFunction() {
+  if (window.pageYOffset >= sticky) {
+    navbar.classList.remove("navbar-style");
+    navbar.classList.add("sticky");
+  } else {
+    navbar.classList.remove("sticky");
+    navbar.classList.add("navbar-style");
+  }
+}*/
+
+
+   (function($) {
+    $(document).ready(function() {
+        var $chatbox = $('.chatbox'),
+            $chatboxTitle = $('.chatbox__title'),
+            $chatboxTitleClose = $('.chatbox__title__close');
+
+        $chatboxTitle.on('click', function() {
+            $chatbox.toggleClass('chatbox--tray');
+        });
+        $chatboxTitleClose.on('click', function(e) {
+            e.stopPropagation();
+            $chatbox.addClass('chatbox--closed');
+        });
+        $chatbox.on('transitionend', function() {
+            if ($chatbox.hasClass('chatbox--closed')) $chatbox.remove();
+             $chatbox.removeClass('chatbox--empty');
+        });
+
+    });
+})(jQuery);
+var ctx = document.getElementById("myChart").getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"], //x-axis pts
+            datasets: [{
+                label: '# of Votes',
+                data: [12000, 19000, 3000, 5000, 2000, 3000],   //y-axis pts
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:true
+                    }
+                }]
+            }
+        }
+    });
+
+</script>
+  </body>
+</html>

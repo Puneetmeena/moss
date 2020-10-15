@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" type="text/css" href="css/cart.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/chatbox.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.js"></script>
+		<script type="text/javascript" src="js/cart.js"></script>
+    <title>1mg</title>
+    <style>
+    .affix {
+        top: 0;
+        width: 100%;
+        z-index: .9999 !important;
+      }
+    .form-control:focus
+      {
+        box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.02);
+      }
+      .text
+      {
+        border-top-width: 0px;
+        border-right-width: 0px;
+        border-left-width:0px;
+        border-color: #7b97e2f0;
+        background-color: #0000000f;
+        border-radius: 0px;
+        color: #fff;
+      }
+      .btn-default
+      {
+        color: #d2e3fd;
+        background-color: #4a80ceab;
+        border-color: #ccc0;
+      }
+      .btn-default:hover
+      {
+        background-color: #4a80ceab;
+        color: black;
+      }
+			.search-form ul {
+        display: none;
+        position: absolute;
+        background-color: #fff;
+        z-index: 1000;
+        top: 34px;
+        list-style-type: none;
+        width: inherit;
+        border-radius: 0px 0px 2px 2px;
+        box-shadow:2px 3px 5px -1px rgba(0, 0, 0, .5);
+        padding: 0px;
+      }
+
+      .search-form ul li a{
+        text-decoration: none;
+        color: black;
+        cursor: default;
+      }
+
+      .search-form ul li {
+        padding: 5px 10px;
+      }
+
+      .search-form ul li:hover {
+        background-color: #f1f3f6;
+      }
+
+      .select {
+        background-color: #f1f3f6;
+      }
+</style>
+</head>
+<body>
+	<header style="width: 100%;z-index: 1030;">
+		<nav class="navbar navbar-style" style="border-radius: 0; margin-bottom: 0;">
+			<div class="container-fluid">
+				<div class="navbar-header logo">
+					<a href="#"><img src="https://img.1mg.com/images/header/1mg_logo.svg" alt="logo"></a>
+					<button type="button" style="margin: 0;" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+						<i class="fa fa-bars"></i>
+					</button>
+				</div>
+				<div class="collapse navbar-collapse" id="myNavbar">
+					<ul id="collapse-list">
+						<li><a href="index.html" style="font-size: 165x;"><span><i class="fa fa-home"></i></span> <span class="icon-info">Home</span></a></li>
+						<li><a href="#articles" style="font-size: 15px;"><span><i class="fa fa-newspaper-o"></i></span> <span class="icon-info">Articles</span></a></li>
+						<li><a href="#"  style="font-size: 15px;"data-toggle="modal" data-target="#myModal"><span><i class="fa fa-sign-in"></i></span> <span class="icon-info">Login / Sign Up</span></a></li>
+						<li><a href="#" style="font-size: 15px;"><i class="fa fa-shopping-cart"></i><span id="cart_no_of_items" style="visibility: hidden; padding: 1px 3px;position: relative; bottom: 10px; width: 18px; height: 18px; border-radius: 50%; background-color: yellow; color: black; font-size: 12px; font-weight: bold;">0</span></a></li>
+						<li><a href="#" style="font-size: 15px;">Need Help?</a></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<nav class="navbar navbar-style" id="navbar" data-spy="affix" data-offset-top="80" style="border-radius: 0px;margin-bottom: 0px;z-index: 1030;">
+			<div class="container-fluid">
+				<div class="col-md-2 col-xs-4 location">
+					<a href="#" style="color: white;"><i class="fa fa-map-marker"></i> <span>New Delhi</span></a>
+				</div>
+				<div class="col-md-10 col-xs-8" style="padding: 0px;">
+					<form class="search-form" id="search-form" action="/action_page.php">
+						<div class="input-group search-input" style="">
+							<input type="text" id="search-med" autocomplete="off" class="form-control" placeholder="Search Medicines Here..." name="search" style="border-top-width:0px;border-bottom-width:2px;border-right-width:0px;border-left-width:0px;background-color: #76abfb00;border-color:#0a4cb7; color:#cdd2e2; font-family:Verdana, Geneva, sans-serif;border-radius: 0px;">
+							<ul>
+								<li id="0" class="select" onclick="redirect(0);"><a></a></li>
+								<li id="1" onclick="redirect(1);"><a></a></li>
+								<li id="2" onclick="redirect(2);"><a></a></li>
+								<li id="3" onclick="redirect(3);"><a></a></li>
+							</ul>
+							<div class="input-group-btn">
+								<button class="btn btn-default" type="submit" style="background-color: #082c699c;border-color: #0a4cb7;color:#cdd2e2;width: 34px;border-radius: 50%;padding-left: 6px;padding-right: 6px;margin-left: 5px;">
+									<i class="glyphicon glyphicon-search"></i>
+								</button>
+									<i class="glyphicon glyphicon-search"></i>
+								</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</nav>
+	</header>
+	<!--<div class="jumbotron" style="margin: 0;">
+		<div class="container">
+			<p style="font-size: 3em; margin: 0;">My Cart</p>
+		</div>
+	</div>-->
+    <h1 class="head">MY CART</h1>
+     <div class="container" style="height: 100%;width: 100%;">
+     	<div class="row" style="padding-top: 1%;">
+     		<div class="col-md-8" id="medicines-list">
+					<div class="thumbnail" style="margin-right: 3%;padding-left: 1%;margin-left: 1%; ">
+						<div class="row">
+							<div class="col-sm-5" style="padding-left: 7%;">
+	      		   	  <img src="http://via.placeholder.com/350x250" class="img-responsive thumbnail" style="margin-top: 20px; height: 130px;">
+	      		  </div>
+							<div class="col-sm-7">
+               <div class="row">
+                <div class="col-md-7">
+	      		      <h3 id="med_name">NAME</h3>
+                </div>
+                <div class="col-md-5">
+                   <div id="quantity" style="display: inline-block; background-color: #f0f0f0;margin-top: 10px;">
+                       <button type="button" id="quantity-dec" name="button" style="width: 45px;padding: 5px 0px;font-size: 20px;font-weight: bold;border:none;">-</button>
+                       <span style="padding: 10px;">1</span>
+                     <button type="button" id="quantity-inc" name="button" style="border:none;width: 45px; padding: 5px 0px; font-size: 20px; font-weight: bold;">+</button>
+                    </div>
+                </div>
+               </div>
+	      		      <a href="#" id="company_name">COMPANY NAME</a>
+	      		      <h4 style="padding-top: 15px;" id="price">&#8377; <span>28000</span></h4>
+	      		     <div class="col-md-6" style="padding-left: 0px;">
+                  <h5 style="padding-top: 5px;text-align: left;" id="primarily-used">PRIMARIY USED</h5>
+                 </div>
+	               <div class="col-md-6 " style="padding-top: 0px;padding-bottom: 5px;" align="center">
+	                 <button type="button" id="delete" name="button" class="delete" style="width: 60%;"><span class="glyphicon glyphicon-trash" style="padding-right: 10px;"></span>ITEM</button>
+	               </div>
+	      		   </div>
+						</div>
+					</div>
+     		</div>
+     		<div class="col-md-3 thumbnail">
+     			<div class="details">
+     				<h3 style="text-align: center; color:#041238;">PRICE DETAILS</h3><br>
+     				<div class="col-md-6" style="height: 120px;">
+     				  <div class="leftt">
+     				    <p style="font-weight: bold;">ITEM</p>
+     				    <h5>med</h5>
+     				  </div>
+                    </div>
+                    <div class="col-md-6" style="height: 120px;">
+     				  <div class="rightt">
+     				    <p style="font-weight: bold;">PRICE</p>
+     				    <h5>&#8377;200</h5>
+     				  </div>
+     			    </div>
+     			</div><br>
+     			<div class="col-md-8">
+     			  <h4> AMOUNT PAYABLE</h4><br>
+                </div>
+                <div class="col-md-4" align="right">
+                	<h4>&#8377;200</h4>
+                </div>
+								<div class="col-md-12">
+                   <button type="button" name="button" class="buy"><i class="fa fa-shopping-bag"></i>  BUY</button>
+                </div>
+     		</div>
+     	</div>
+     </div>
+		 <!-- Modal for article-->
+     <div id="myModal1" class="modal fade" role="dialog">
+       <div class="modal-dialog">
+
+         <!-- Modal content-->
+         <div class="modal-content">
+           <div class="modal-header">
+             <button type="button" class="close" data-dismiss="modal">&times;</button>
+             <h4 class="modal-title">Lorem ipsum dolor sit amet, consectetur adipiscing elit</h4>
+           </div>
+           <div class="modal-body" style="overflow-y: auto; height: 400px;">
+             <p style="text-align: justify;">
+               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis tincidunt quam eget feugiat bibendum. Nunc eget justo a risus commodo rutrum. Duis faucibus urna sit amet feugiat ultricies. Donec non pulvinar lectus. Donec interdum blandit justo, vel porta risus suscipit iaculis. Aliquam molestie ante sit amet ex facilisis, sit amet porta libero ornare. Maecenas in ex fringilla, pellentesque lectus luctus, ullamcorper est. Aliquam venenatis sem a libero pellentesque hendrerit vitae ac dui. Sed vel posuere quam, at molestie leo. Ut pulvinar tellus sed sem congue commodo. Cras efficitur pharetra consequat. Nunc ultricies aliquam mi, vitae placerat massa. Morbi porta dui risus, quis finibus tellus feugiat eu. Suspendisse facilisis, tortor id cursus luctus, diam lectus hendrerit mi, at dictum lacus ligula at elit.
+
+               Sed eget sem quis ligula sollicitudin mollis. Mauris eu ultricies tellus, id sodales arcu. In egestas porta hendrerit. Proin eu felis sed nulla sodales finibus sit amet et lectus. Phasellus nisl velit, venenatis at condimentum ut, bibendum vitae augue. Praesent sem elit, ornare ac risus sed, luctus semper massa. Fusce porta libero commodo tincidunt iaculis. Aliquam urna lectus, aliquam nec sem quis, mollis varius urna. Etiam blandit nibh nunc, in aliquet nisl egestas vitae. Nulla ac justo vitae sapien ultricies fermentum ac vitae quam.
+
+               Nulla eget odio ultricies, sollicitudin sem ut, semper nisi. Nullam mollis diam sit amet condimentum blandit. Donec molestie urna augue, vitae vehicula risus iaculis ac. Nulla odio est, dictum et cursus at, convallis et est. Morbi et nisi et dui aliquam efficitur. Ut ac aliquam nisi. Donec finibus purus in mi hendrerit, nec interdum ex commodo. Praesent congue vestibulum arcu, nec consectetur dui iaculis nec. Donec aliquam tristique quam, ac scelerisque purus ornare quis. Aliquam erat volutpat. Morbi elementum scelerisque metus, non congue ipsum porta eu.
+
+               Nulla aliquam dolor justo. Quisque viverra sit amet enim eu ultrices. Nunc mi nulla, faucibus sit amet neque sit amet, tincidunt ornare ipsum. Nunc aliquam, arcu non blandit imperdiet, mi tellus vehicula mauris, vitae fringilla purus erat sed tellus. Pellentesque tincidunt aliquet lacus, quis vulputate tortor consequat in. In hac habitasse platea dictumst. Nulla sed risus et justo interdum tristique sit amet ac ligula. Donec molestie nulla et ante varius, at bibendum dolor dictum. Integer lobortis nec urna nec accumsan. Praesent dignissim est non porta varius. Aenean sed mattis ante. Nunc rhoncus tellus porttitor nibh bibendum ultrices.
+
+               In eu felis sit amet mauris pharetra egestas. Sed ultrices, felis at dapibus lobortis, magna quam mattis elit, ac faucibus neque ex elementum purus. Mauris ultrices nulla id blandit pellentesque. Donec congue imperdiet varius. Vivamus et nisl sit amet velit congue tristique et eu libero. Etiam a magna eget ante consequat eleifend quis vel odio. Cras accumsan egestas augue a tristique. Morbi vel nisi nec velit finibus finibus. Quisque fermentum velit placerat felis egestas, sit amet posuere eros molestie. Proin at interdum nibh, vel ornare leo.
+             </p>
+           </div>
+           <div class="modal-footer">
+             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+           </div>
+         </div>
+
+       </div>
+     </div>
+
+      <!--Modal for Sign up and Sign In-->
+     <div class="modal fade" style="margin-top:30px;" id="myModal" role="dialog">
+       <div class="modal-dialog">
+
+         <!-- Modal content-->
+         <div class="modal-content" style="background-color: #001223f7;">
+           <div id="loginbox">
+             <div class="modal-header" style="border-bottom-width: 0px; ">
+               <h4 class="modal-title" style="color:#d3ddf1;">Login Here</h4>
+             </div>
+             <div class="modal-body">
+               <form method="post" id="login-form" style="padding: 10px;">
+                 <fieldset>
+                   <div class="form-group">
+                     <input type="text" id="login-email" class="form-control text" name="login-email" value="" placeholder="Email">
+                   </div>
+                   <div class="form-group">
+                     <input type="password" id="login-password" class="form-control text" name="login-password" value="" placeholder="Password" >
+                   </div>
+                   <div class="checkbox">
+                     <label style="color:#d3ddf1;"><input type="checkbox" name="checkbox" name="remember-me" value="1" checked> Remember me</label>
+                   </div>
+                   <button type="submit" id="login-btn" class="btn btn-default" name="button">Log In</button>
+                 </fieldset>
+               </form>
+               <div class="" style="color:white; padding-left: 1.5%;">
+                 Don't have an account? <a style="cursor: pointer;" onclick="$('#loginbox').hide(); $('#signupbox').show()">Sign up Here</a>
+               </div>
+             </div>
+           </div>
+           <div id="signupbox" style="display: none;">
+             <div class="modal-header" style="border-bottom-width: 0px; ">
+               <h4 class="modal-title" style="color:#d3ddf1;">Sign Up Here</h4>
+             </div>
+             <div class="modal-body">
+               <form method="post" id="signup-form" style="padding: 10px;">
+                 <fieldset>
+                   <div class="form-group">
+                     <input type="text" id="signup-firstname" class="form-control text" name="signup-firstname" value="" placeholder="First Name">
+                   </div>
+                   <div class="form-group">
+                     <input type="text" id="signup-lastname" class="form-control text" name="signup-lastname" value="" placeholder="Last Name">
+                   </div>
+                   <div class="form-group">
+                     <input type="text" id="signup-email" class="form-control text" name="signup-email" value="" placeholder="Email">
+                   </div>
+                   <div class="form-group">
+                     <input type="text" id="signup-username" class="form-control text" name="signup-username" value="" placeholder="Username">
+                   </div>
+                   <div class="form-group">
+                     <input type="password" id="signup-password" class="form-control text" name="signup-password" value="" placeholder="Password" >
+                   </div>
+                   <div class="form-group">
+                     <input type="password" id="signup-retype-password" class="form-control text" name="signup-retype-password" value="" placeholder="Re-type Password">
+                   </div>
+                   <button type="submit" id="signup-btn" style="width: auto;" class="btn btn-default" name="button">Sign Up</button>
+                 </fieldset>
+               </form>
+               <div class="" style="color:white; padding-left: 1.5%;">
+                 Already Have an Account? <a style="cursor: pointer;" onclick="$('#signupbox').hide(); $('#loginbox').show()">Log In Here</a>
+               </div>
+             </div>
+           </div>
+           <div class="modal-footer" style="border-top-width: 0px;">
+             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+           </div>
+         </div>
+       </div>
+     </div>
+
+      <div class="col-md-12 social-icons" id="follow">
+        <ul class="social-network social-circle">
+          <li><a target="_blank" href="https://www.facebook.com/" class="icoFacebook" title="Facebook"><i class="fa fa-facebook"></i></a></li>
+          <li><a href="#" class="icoTwitter" title="Twitter"><i class="fa fa-twitter"></i></a></li>
+          <li><a target="_blank" href="https://business.google.com" class="icoGoogle" title="Google +"><i class="fa fa-google-plus"></i></a></li>
+          <li><a target="_blank" href="https://www.linkedin.com/" class="icoLinkedin" title="Linkedin"><i class="fa fa-linkedin"></i></a></li>
+        </ul>
+        <p>copyright&copy Medicines 2018. All rights reserved.</p>
+      </div>
+
+</body>
+</html>
